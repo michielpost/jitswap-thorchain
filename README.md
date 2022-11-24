@@ -1,9 +1,11 @@
 # jitswap-thorchain
 ### JITswap on THORChain
+100% client side application running with Blazor WebAssembly in the browser.
 
-   
-Midgard API: https://midgard.ninerealms.com/v2/doc  
-Thornode API: https://thornode.ninerealms.com/thorchain/doc/
+Live version:
+- https://jitswap.com
+- https://michielpost.github.io/jitswap-thorchain/
+
 
 
 ## Blazor WASM showcase for THORChain
@@ -24,11 +26,21 @@ Thornode API: https://thornode.ninerealms.com/thorchain/doc/
 
 ## TODO
 - GitHub codespace
+- Prerendering https://github.com/jsakamoto/BlazorWasmPreRendering.Build
 
 ## Roadmap (help needed!)
 - Logo
 - Styling / css
 - Implementing Swaps
 - Using .Net 8 with async Blazor WASM
-- Prerendering https://github.com/jsakamoto/BlazorWasmPreRendering.Build
 - Auto refresh after X time / manual refresh button
+
+## THORChain
+THORChain APIs explained:
+- https://dev.thorchain.org/thorchain-dev/concepts/connecting-to-thorchain
+- https://dev.thorchain.org/thorchain-dev/
+
+Midgard API: https://midgard.ninerealms.com/v2/doc  
+
+Thornode API: https://thornode.ninerealms.com/thorchain/doc/
+
