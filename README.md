@@ -23,8 +23,6 @@ Thornode API: https://thornode.ninerealms.com/thorchain/doc/
     - https://aspnet.github.io/quickgridsamples/
 
 ## TODO
-- Dynamic base tag 
-- GitHub hosting handle 404s
 - GitHub codespace
 
 ## Roadmap (help needed!)
