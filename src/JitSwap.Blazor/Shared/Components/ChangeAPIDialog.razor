@@ -1,0 +1,31 @@
+﻿@inject MainViewModel MainViewModel
+
+<MudDialog>
+    <DialogContent>
+        <MudSelect @bind-Value="newUrl" T="string" Label="Midgard API" AnchorOrigin="Origin.BottomCenter">
+            <MudSelectItem Value="@("https://midgard.ninerealms.com")" />
+            <MudSelectItem Value="@("https://midgard.thorswap.net")" />
+            <MudSelectItem Value="@("https://stagenet-midgard.ninerealms.com")"  />
+            <MudSelectItem Value="@("https://testnet.midgard.thorchain.info")" />
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] 
+    MudDialogInstance? MudDialog { get; set; }
+
+    private string? newUrl { get; set; }
+
+    void Submit() {
+        if(!string.IsNullOrEmpty(newUrl))
+            MainViewModel.MidgardUrl = newUrl;
+
+        MudDialog?.Close(DialogResult.Ok(true));
+    }
+
+    void Cancel() => MudDialog?.Cancel();
+}

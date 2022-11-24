@@ -1,0 +1,23 @@
+﻿@inherits MvvmComponentBase<MainViewModel>
+@using System.Linq;
+
+<MudText Typo="Typo.h5">Churns List</MudText>
+<DataLoaderProgress DataLoader="BindingContext.ChurnList" />
+@if (BindingContext.ChurnList == null || BindingContext.ChurnList.LoadingState != LoadingState.Finished) return;
+
+<QuickGrid Items="@BindingContext.ChurnList.Data!.AsQueryable()" Pagination="@pagination">
+    <PropertyColumn Property="@(p => p.Height)" Sortable="true" />
+    <PropertyColumn Property="@(p => DateTimeOffsetExtensions.FromUnixTimeNanoseconds(long.Parse(p.Date)))" Format="yyyy-MM-dd hh:mm" Sortable="true" Title="Date" />
+</QuickGrid>
+<Paginator Value="@pagination" />
+
+@code {
+
+    PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await BindingContext.LoadChurnList();
+    }
+
+}

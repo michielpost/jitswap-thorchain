@@ -1,0 +1,53 @@
+﻿@inherits MvvmComponentBase<MainViewModel>
+
+<MudText Typo="Typo.h5">Global Stats</MudText>
+<DataLoaderProgress DataLoader="BindingContext.NetworkData" />
+@if (BindingContext.StatsData.LoadingState != LoadingState.Finished) return;
+
+
+<MudText>Rune Depth: @BindingContext.StatsData.Data?.RuneDepth</MudText>
+<MudText>Switched Rune: @BindingContext.StatsData.Data?.SwitchedRune</MudText>
+<MudText>Rune Price USD: @BindingContext.StatsData.Data?.RunePriceUSD</MudText>
+
+<MudText>Swap Volume: @BindingContext.StatsData.Data?.SwapVolume</MudText>
+<MudText>Swap Count 24h: @BindingContext.StatsData.Data?.SwapCount24h</MudText>
+<MudText>Swap Count 30d: @BindingContext.StatsData.Data?.SwapCount30d</MudText>
+<MudText>Swap Count: @BindingContext.StatsData.Data?.SwapCount</MudText>
+
+<MudText>Unique Swapper Count: @BindingContext.StatsData.Data?.UniqueSwapperCount</MudText>
+
+<br />
+<MudText>To Asset Count: @BindingContext.StatsData.Data?.ToAssetCount</MudText>
+<MudText>To Rune Count: @BindingContext.StatsData.Data?.ToRuneCount</MudText>
+
+<br />
+<MudText>Synth Mint Count: @BindingContext.StatsData.Data?.SynthMintCount</MudText>
+<MudText>Synth Burn Count: @BindingContext.StatsData.Data?.SynthBurnCount</MudText>
+
+<br />
+<MudText>Daily Active Users: @BindingContext.StatsData.Data?.DailyActiveUsers</MudText>
+<MudText>Monthly Active Users: @BindingContext.StatsData.Data?.MonthlyActiveUsers</MudText>
+
+<br />
+<MudText>Add Liquidity Count: @BindingContext.StatsData.Data?.AddLiquidityCount</MudText>
+<MudText>Add Liquidity Volume: @BindingContext.StatsData.Data?.AddLiquidityVolume</MudText>
+
+<br />
+<MudText>Withdraw Volume: @BindingContext.StatsData.Data?.WithdrawVolume</MudText>
+<MudText>Withdraw Count: @BindingContext.StatsData.Data?.WithdrawCount</MudText>
+
+<br />
+<MudText>Impermanent Loss Protection Paid: @BindingContext.StatsData.Data?.ImpermanentLossProtectionPaid</MudText>
+
+
+
+
+
+@code {
+   
+    protected override async Task OnInitializedAsync()
+    {
+        await BindingContext.LoadStats();
+    }
+
+}

@@ -1,0 +1,42 @@
+﻿@using Midgard;
+@inherits MvvmComponentBase<MainViewModel>
+
+<MudText>Assets</MudText>
+
+<DataLoaderProgress DataLoader="BindingContext.PoolsList" />
+
+@if (FilteredItems != null)
+{
+    <QuickGrid Items="@FilteredItems" ResizableColumns="true" Pagination="@pagination">
+        <PropertyColumn Property="@(c => c.Asset)" Sortable="true">
+            <ColumnOptions>
+                <div class="search-box">
+                    <input type="search" autofocus @bind="nameFilter" @bind:event="oninput" placeholder="Asset name..." />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Property="@(c => c.RuneDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+        <PropertyColumn Property="@(c => c.AssetDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+    </QuickGrid>
+
+    <Paginator Value="@pagination" />
+}
+
+@code {
+    IQueryable<PoolDetail>? items;
+    PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
+    string nameFilter = string.Empty;
+
+    GridSort<PoolDetail> rankSort = GridSort<PoolDetail>
+        .ByDescending(x => x.RuneDepth)
+        .ThenDescending(x => x.AssetDepth);
+
+    IQueryable<PoolDetail>? FilteredItems => items?.Where(x => x.Asset.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+
+    protected override async Task OnInitializedAsync()
+    {
+        await BindingContext.LoadPoolsList();
+
+        items = BindingContext.PoolsList?.Data?.AsQueryable();
+    }
+}

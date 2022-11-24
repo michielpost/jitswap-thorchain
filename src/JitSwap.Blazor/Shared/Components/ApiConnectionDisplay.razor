@@ -1,0 +1,14 @@
+﻿@inherits MvvmComponentBase<MainViewModel>
+@inject IDialogService DialogService
+
+<MudText>@BindingContext.MidgardUrl</MudText>
+<MudIconButton Icon="@Icons.Filled.Settings" Color="MudBlazor.Color.Inherit" @onclick="OpenDialog" />
+
+
+@code {
+    private void OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<ChangeAPIDialog>("Change Midgard API", options);
+    }
+}

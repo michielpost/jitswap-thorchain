@@ -1,0 +1,14 @@
+﻿@if (DataLoader == null 
+    || DataLoader.LoadingState == LoadingState.None 
+    || DataLoader.LoadingState == LoadingState.Finished)
+    return;
+
+<MudText Typo="Typo.overline">@DataLoader.LoadingState.ToString()</MudText>
+
+@code {
+    [Parameter]
+    public IDataLoader? DataLoader { get; set; }
+
+    [Parameter]
+    public string? Title { get; set; }
+}
