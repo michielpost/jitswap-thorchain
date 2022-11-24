@@ -1,7 +1,7 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Global Stats</MudText>
-<DataLoaderProgress DataLoader="BindingContext.NetworkData" />
+<DataLoaderProgress DataLoader="BindingContext.StatsData" />
 @if (BindingContext.StatsData.LoadingState != LoadingState.Finished) return;
 
 
@@ -45,7 +45,7 @@
 
 @code {
    
-    protected override async Task OnInitializedAsync()
+    protected override async Task LoadDataAsync()
     {
         await BindingContext.LoadStats();
     }

@@ -15,9 +15,27 @@ namespace JitSwap.Blazor.Pages
             base.OnInitialized();
         }
 
-        internal void BindingContext_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override async Task OnInitializedAsync()
+        {
+            await LoadDataAsync();
+            await base.OnInitializedAsync();
+        }
+
+        internal async void BindingContext_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             this.StateHasChanged();
+
+            if (e.PropertyName == nameof(MainViewModel.MidgardUrl))
+            {
+                await LoadDataAsync();
+                this.StateHasChanged();
+            }
+        }
+
+        protected virtual Task LoadDataAsync()
+        {
+
+            return Task.CompletedTask;
         }
     }
 }

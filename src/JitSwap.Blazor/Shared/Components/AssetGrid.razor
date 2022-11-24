@@ -5,7 +5,7 @@
 
 <DataLoaderProgress DataLoader="BindingContext.PoolsList" />
 
-@if (FilteredItems != null)
+@if (BindingContext.PoolsList.Data?.Any() ?? false && FilteredItems != null)
 {
     <QuickGrid Items="@FilteredItems" ResizableColumns="true" Pagination="@pagination">
         <PropertyColumn Property="@(c => c.Asset)" Sortable="true">
@@ -33,7 +33,7 @@
 
     IQueryable<PoolDetail>? FilteredItems => items?.Where(x => x.Asset.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task LoadDataAsync()
     {
         await BindingContext.LoadPoolsList();
 
