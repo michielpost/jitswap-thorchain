@@ -30,6 +30,10 @@
       </script>
       <!-- End Single Page Apps for GitHub Pages -->
     <script>
+        console.log(window.location.pathname);
+        if (window.location.pathname.endsWith('/') && window.location.pathname.length > 1)
+            window.location.pathname = window.location.pathname.replace(/\/+$/, '');
+
         // set base href dynamically based on hosting location
         var base = document.createElement("base");
         var newBase = `${window.location.pathname}`;

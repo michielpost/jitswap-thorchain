@@ -25,8 +25,10 @@ Live version:
     - https://aspnet.github.io/quickgridsamples/
 
 ## TODO
+- GitHub 404 fixen
 - GitHub codespace
 - Prerendering https://github.com/jsakamoto/BlazorWasmPreRendering.Build
+- Store API preference in local storage
 
 ## Roadmap (help needed!)
 - Logo
@@ -34,6 +36,7 @@ Live version:
 - Implementing Swaps
 - Using .Net 8 with async Blazor WASM
 - Auto refresh after X time / manual refresh button
+- Auto generate blazor sitemap?
 
 ## THORChain
 THORChain APIs explained:
