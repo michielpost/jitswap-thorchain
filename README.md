@@ -25,7 +25,6 @@ Live version:
     - https://aspnet.github.io/quickgridsamples/
 
 ## TODO
-- GitHub 404 fixen
 - GitHub codespace
 - Prerendering https://github.com/jsakamoto/BlazorWasmPreRendering.Build
 - Store API preference in local storage
