@@ -29,26 +29,7 @@
         }(window.location))
       </script>
       <!-- End Single Page Apps for GitHub Pages -->
-    <script>
-        console.log(window.location.pathname);
-        if (window.location.pathname.endsWith('/') && window.location.pathname.length > 1)
-            window.location.pathname = window.location.pathname.replace(/\/+$/, '');
-
-        // set base href dynamically based on hosting location
-        var base = document.createElement("base");
-        var newBase = `${window.location.pathname}`;
-
-        var secondSlash = newBase.indexOf("/", 1);
-        newBase = newBase.substr(0, secondSlash);
-
-        // Ensure initial slash present
-        newBase = (newBase.startsWith("/") ? "" : "/") + newBase;
-        // Ensure trailing slash present
-        newBase += newBase.endsWith("/") ? "" : "/";
-        base.href = newBase;
-        console.log(`Base href set to ${newBase}`);
-        document.getElementsByTagName("head")[0].appendChild(base);
-    </script>
+    <base href="/" />
     <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="JitSwap.Blazor.styles.css" rel="stylesheet" />

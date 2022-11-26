@@ -21,13 +21,15 @@ Live version:
     - https://github.com/apexcharts/Blazor-ApexCharts
 - GitHub Actions for Build and Deploy
 - Show version + git commit hash in app
+- Blazor WASM PreRendering
+    -  https://github.com/jsakamoto/BlazorWasmPreRendering.Build
 - Microsoft Blazor grid experimental 
     - https://aspnet.github.io/quickgridsamples/
 
 ## TODO
 - GitHub codespace
-- Prerendering https://github.com/jsakamoto/BlazorWasmPreRendering.Build
 - Store API preference in local storage
+- Charts
 
 ## Roadmap (help needed!)
 - Logo

@@ -85,14 +85,9 @@ namespace JitSwap.Blazor.ViewModels
         /// <summary>
         /// Gets the <see cref="IAsyncRelayCommand{T}"/> responsible for loading the source markdown docs.
         /// </summary>
-        public IAsyncRelayCommand InitializeCommand { get; }
-
         public MainViewModel(DataService dataService) : base()
         { 
             this.dataService = dataService;
-
-            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
-
         }
 
         public Task LoadHealth() => health.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync());
@@ -167,7 +162,7 @@ namespace JitSwap.Blazor.ViewModels
                 totalValueLockedHistory.Clear();
                 poolLiquidityHistory.Clear();
 
-                InitializeCommand.Execute(null);
+                this.InitializeAsync();
             }
            
         }

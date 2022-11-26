@@ -40,20 +40,25 @@ namespace JitSwap.Blazor
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddMudServices();
+            ConfigureServices(builder.Services, builder.HostEnvironment.BaseAddress);
+
+            await builder.Build().RunAsync();
+        }
+
+        private static void ConfigureServices(IServiceCollection services, string baseAddress)
+        {
+            services.AddMudServices();
 
             //Set Version
             Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
 
             //Services
-            builder.Services.AddSingleton<DataService>();
+            services.AddSingleton<DataService>();
 
             //Register ViewModels
-            builder.Services.AddSingleton<MainViewModel>();
-
-            await builder.Build().RunAsync();
+            services.AddSingleton<MainViewModel>();
         }
     }
 }
