@@ -8,8 +8,8 @@
   "resources": {
     "assembly": {
       "Blazor-ApexCharts.dll": "sha256-15a08MS1dcFdtIKSUI2+XC6CAqKAGKMllHX66tLihcM=",
-      "CommunityToolkit.Mvvm.dll": "sha256-Dc5xTuoB5efarT76MZKoCo1LqcfQWMelvPWmPMV2nms=",
-      "JitSwap.Blazor.dll": "sha256-B4eagaecWk2at5seQnOswuVtVd7p\/T1shPdj1IslYrc=",
+      "CommunityToolkit.Mvvm.dll": "sha256-QyUW+7VcRgHrhy9yzkHUhIvNn1s4FWClhmKDHHFKnFk=",
+      "JitSwap.Blazor.dll": "sha256-WSCzu52zOR3B80Gw6rhWGEr9FHdVcgPsGXLvMVQkFbA=",
       "Microsoft.AspNetCore.Components.dll": "sha256-1Bs\/QCMmquZDiKYOBLh33RQNzqPhzLjmP6aAbLqJa2U=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-3SUOUqqapHhh85LmDZm84Qreqcj3Gy5qHzOLd\/O2RZ8=",
       "Microsoft.AspNetCore.Components.QuickGrid.dll": "sha256-PW\/wHFaTp8vYiuguHaQ3AwRZufEAL3poOUlA2LvA0BA=",
