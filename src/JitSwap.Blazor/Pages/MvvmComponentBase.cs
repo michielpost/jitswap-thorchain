@@ -15,10 +15,16 @@ namespace JitSwap.Blazor.Pages
             base.OnInitialized();
         }
 
-        protected override async Task OnInitializedAsync()
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    await LoadDataAsync();
+        //    await base.OnInitializedAsync();
+        //}
+
+        protected override async Task OnParametersSetAsync()
         {
             await LoadDataAsync();
-            await base.OnInitializedAsync();
+            await base.OnParametersSetAsync();
         }
 
         internal async void BindingContext_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -34,7 +40,6 @@ namespace JitSwap.Blazor.Pages
 
         protected virtual Task LoadDataAsync()
         {
-
             return Task.CompletedTask;
         }
     }

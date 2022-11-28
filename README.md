@@ -29,6 +29,7 @@ Live version:
     - https://github.com/Blazored/LocalStorage
 
 ## TODO
+- Asset details
 - Charts
 - Humanizer
 

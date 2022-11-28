@@ -1,0 +1,29 @@
+﻿@inherits MvvmComponentBase<MainViewModel>
+
+<MudText Typo="Typo.h5">Pool Details</MudText>
+<DataLoaderProgress DataLoader="BindingContext.PoolDetail" />
+@if (BindingContext.PoolDetail.LoadingState != LoadingState.Finished) return;
+
+<MudText>Test</MudText>
+<MudText>Asset: @BindingContext.PoolDetail.Data?.Asset</MudText>
+<MudText>Volume24h: @BindingContext.PoolDetail.Data?.Volume24h</MudText>
+
+
+@code {
+
+    [Parameter]
+    public string? Asset { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        BindingContext.PoolDetail.Clear();
+        base.OnParametersSet();
+    }
+
+    protected override async Task LoadDataAsync()
+    {
+        if(!string.IsNullOrEmpty(Asset))
+            await BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
+    }
+
+}
