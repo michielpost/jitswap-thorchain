@@ -12,13 +12,15 @@ namespace JitSwap.Blazor.Shared
         [Inject]
         public StorageService StorageService { get; set; } = default!;
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            base.OnInitialized();
+            if(firstRender)
+            {
+                var apiUrl = await StorageService.GetApiUrl();
+                BindingContext.MidgardUrl = apiUrl ?? "https://midgard.ninerealms.com";
+            }
 
-            var apiUrl = await StorageService.GetApiUrl();
-            BindingContext.MidgardUrl = apiUrl ?? "https://midgard.ninerealms.com";
-
+            await base.OnAfterRenderAsync(firstRender);
         }
 
     }
