@@ -7,8 +7,6 @@ namespace JitSwap.Blazor.Pages
         protected override void OnInitialized()
         {
             base.OnInitialized();
-
-            //BindingContext.MidgardUrl = "https://midgard.ninerealms.com";
         }
 
         

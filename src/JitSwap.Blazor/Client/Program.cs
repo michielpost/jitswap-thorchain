@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using JitSwap.Blazor;
 using JitSwap.Blazor.Services;
 using JitSwap.Blazor.ViewModels;
@@ -55,10 +56,13 @@ namespace JitSwap.Blazor
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });
 
             //Services
-            services.AddSingleton<DataService>();
+            services.AddScoped<DataService>();
+            services.AddScoped<StorageService>();
 
             //Register ViewModels
-            services.AddSingleton<MainViewModel>();
+            services.AddScoped<MainViewModel>();
+
+            services.AddBlazoredLocalStorage();
         }
     }
 }

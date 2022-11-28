@@ -1,4 +1,5 @@
-﻿using JitSwap.Blazor.ViewModels;
+﻿using JitSwap.Blazor.Services;
+using JitSwap.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components;
 
 namespace JitSwap.Blazor.Shared
@@ -8,11 +9,15 @@ namespace JitSwap.Blazor.Shared
         [Inject]
         public MainViewModel BindingContext { get; set; } = default!;
 
-        protected override void OnInitialized()
+        [Inject]
+        public StorageService StorageService { get; set; } = default!;
+
+        protected override async Task OnInitializedAsync()
         {
             base.OnInitialized();
 
-            BindingContext.MidgardUrl = "https://midgard.ninerealms.com";
+            var apiUrl = await StorageService.GetApiUrl();
+            BindingContext.MidgardUrl = apiUrl ?? "https://midgard.ninerealms.com";
 
         }
 

@@ -8,12 +8,12 @@
     }
   },
   "profiles": {
-    "http": {
+    "blazorwasm": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "http://localhost:5237",
+      "applicationUrl": "https://localhost:7167;http://localhost:5237",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

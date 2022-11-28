@@ -9,7 +9,7 @@ namespace JitSwap.Blazor.ViewModels
     public partial class MainViewModel : ObservableRecipient
     {
         private readonly DataService dataService;
-
+        private readonly StorageService storageService;
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
         private string? midgardUrl;
@@ -85,9 +85,10 @@ namespace JitSwap.Blazor.ViewModels
         /// <summary>
         /// Gets the <see cref="IAsyncRelayCommand{T}"/> responsible for loading the source markdown docs.
         /// </summary>
-        public MainViewModel(DataService dataService) : base()
+        public MainViewModel(DataService dataService, StorageService storageService) : base()
         { 
             this.dataService = dataService;
+            this.storageService = storageService;
         }
 
         public Task LoadHealth() => health.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync());
@@ -143,8 +144,11 @@ namespace JitSwap.Blazor.ViewModels
 
         partial void OnMidgardUrlChanged(string? value)
         {
-            if(!string.IsNullOrEmpty(value))
+
+            if (!string.IsNullOrEmpty(value))
             {
+                storageService.SetApiUrl(value);
+
                 dataService.Init(value);
 
                 knownPoolsList.Clear();

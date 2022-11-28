@@ -2,12 +2,19 @@
 
 <MudDialog>
     <DialogContent>
-        <MudSelect @bind-Value="newUrl" T="string" Label="Select Midgard API" AnchorOrigin="Origin.BottomCenter" FullWidth="true">
-            <MudSelectItem Value="@("https://midgard.ninerealms.com")" />
-            <MudSelectItem Value="@("https://midgard.thorswap.net")" />
-            <MudSelectItem Value="@("https://stagenet-midgard.ninerealms.com")"  />
-            <MudSelectItem Value="@("https://testnet.midgard.thorchain.info")" />
-        </MudSelect>
+        <MudPaper Class="pa-4">
+            <MudSelect @bind-Value="newUrl" T="string" Label="Select Midgard API" AnchorOrigin="Origin.BottomCenter" FullWidth="true">
+                <MudSelectItem Value="@("https://midgard.ninerealms.com")" />
+                <MudSelectItem Value="@("https://midgard.thorswap.net")" />
+                <MudSelectItem Value="@("https://stagenet-midgard.ninerealms.com")"  />
+                <MudSelectItem Value="@("https://testnet.midgard.thorchain.info")" />
+            </MudSelect>
+        </MudPaper>
+
+        <MudPaper Class="pa-4">
+            <MudTextField T="string" @bind-Value="customUrl" Label="Custom URL" InputType="InputType.Url" />
+        </MudPaper>
+
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -19,10 +26,19 @@
     MudDialogInstance? MudDialog { get; set; }
 
     private string? newUrl { get; set; }
+    private string? customUrl { get; set; }
+
+    protected override void OnInitialized()
+    {
+        newUrl = MainViewModel.MidgardUrl;
+        base.OnInitialized();
+    }
 
     void Submit() {
         if(!string.IsNullOrEmpty(newUrl))
             MainViewModel.MidgardUrl = newUrl;
+        if (!string.IsNullOrEmpty(customUrl))
+            MainViewModel.MidgardUrl = customUrl;
 
         MudDialog?.Close(DialogResult.Ok(true));
     }
