@@ -115,15 +115,18 @@ namespace JitSwap.Blazor.ViewModels
             return dataService.MidgardAPI!.GetPoolStatsAsync(asset, period);
         });
 
+        //TODO: Chart
         public Task LoadPoolDepthHistory(string pool, Interval interval, int count, long? to, long? from) => poolDepthHistory.LoadAsync(() => {
             return dataService.MidgardAPI!.GetDepthHistoryAsync(pool, interval, count, to, from);
         });
 
+        //TODO: Chart
         public Task LoadPoolSwapHistory(string? pool, Interval4 interval, int count, long? to, long? from)
            => poolSwapHistory.LoadAsync(() => {
                return dataService.MidgardAPI!.GetSwapHistoryAsync(pool, interval, count, to, from);
            });
 
+        //TODO: Chart
         public Task LoadPoolLiquidityHistory(string? pool, Interval3 interval, int count, long? to, long? from)
           => poolLiquidityHistory.LoadAsync(() => {
               return dataService.MidgardAPI!.GetLiquidityHistoryAsync(pool, interval, count, to, from);
@@ -132,10 +135,12 @@ namespace JitSwap.Blazor.ViewModels
 
 
 
+        //TODO: Chart
         public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => earningsHistory.LoadAsync(() => {
             return dataService.MidgardAPI!.GetEarningsHistoryAsync(interval, count, to, from);
         });
 
+        //TODO: Chart
         public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => totalValueLockedHistory.LoadAsync(() => {
             return dataService.MidgardAPI!.GetTVLHistoryAsync(interval, count, to, from);
         });

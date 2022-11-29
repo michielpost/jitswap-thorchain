@@ -1,0 +1,97 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistory" />
+@if (BindingContext.PoolDepthHistory.LoadingState != LoadingState.Finished) return;
+
+
+<ApexChart TItem="DepthHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="@($"{Asset} Liquidity History")">
+
+    <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="USD"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.AssetDepth) / 100000000 * Convert.ToDecimal(e.AssetPriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+    <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="@Asset"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.AssetDepth) / 100000000))"
+                     OrderBy="e=>e.X" />
+
+ @*   <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="SynthSupply"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.SynthSupply)))"
+                     OrderBy="e=>e.X" />*@
+
+@*    <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="AssetPrice"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToDecimal(e.AssetPrice)))"
+                     OrderBy="e=>e.X" />
+
+    <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="AssetPriceUSD"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToDecimal(e.AssetPriceUSD)))"
+                     OrderBy="e=>e.X" />*@
+
+   @* <ApexPointSeries TItem="DepthHistoryIntervals"
+                     Items="Orders"
+                     Name="Net Value"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => e.Country)"
+                     YAggregate="@(e => e.Sum(e => e.NetValue))"
+                     OrderByDescending="e=>e.Y" />*@
+</ApexChart>
+
+
+@code {
+
+    [Parameter]
+    public string? Asset { get; set; }
+
+    private ApexChartOptions<DepthHistoryItem> options = ChartConfig.GetDefaultChartOptions<DepthHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+    }
+
+    protected override void OnParametersSet()
+    {
+        BindingContext.PoolDepthHistory.Clear();
+        base.OnParametersSet();
+    }
+
+    protected override async Task LoadDataAsync()
+    {
+        if (!string.IsNullOrEmpty(Asset))
+            await BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
+    }
+
+}

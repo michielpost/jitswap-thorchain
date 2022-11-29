@@ -29,9 +29,11 @@ Live version:
     - https://github.com/Blazored/LocalStorage
 
 ## TODO
-- Asset details
+- Auto cache data in dataloader, with expire time
+- Move dataloader to seperate package
 - Charts
 - Humanizer
+- Settings page (API url and other settings)
 
 ## Roadmap (help needed!)
 - Logo

@@ -1,12 +1,26 @@
-﻿@inherits MvvmComponentBase<MainViewModel>
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Pool Details</MudText>
 <DataLoaderProgress DataLoader="BindingContext.PoolDetail" />
 @if (BindingContext.PoolDetail.LoadingState != LoadingState.Finished) return;
 
-<MudText>Test</MudText>
 <MudText>Asset: @BindingContext.PoolDetail.Data?.Asset</MudText>
 <MudText>Volume24h: @BindingContext.PoolDetail.Data?.Volume24h</MudText>
+<MudText>AssetDepth: @BindingContext.PoolDetail.Data?.AssetDepth</MudText>
+<MudText>RuneDepth: @BindingContext.PoolDetail.Data?.RuneDepth</MudText>
+<MudText>AssetPrice: @BindingContext.PoolDetail.Data?.AssetPrice</MudText>
+<MudText>AssetPriceUSD: @BindingContext.PoolDetail.Data?.AssetPriceUSD</MudText>
+<MudText>AnnualPercentageRate: @BindingContext.PoolDetail.Data?.AnnualPercentageRate</MudText>
+<MudText>PoolAPY: @BindingContext.PoolDetail.Data?.PoolAPY</MudText>
+<MudText>Status: @BindingContext.PoolDetail.Data?.Status</MudText>
+<MudText>LiquidityUnits: @BindingContext.PoolDetail.Data?.LiquidityUnits</MudText>
+<MudText>SynthUnits: @BindingContext.PoolDetail.Data?.SynthUnits</MudText>
+<MudText>SynthSupply: @BindingContext.PoolDetail.Data?.SynthSupply</MudText>
+<MudText>Units: @BindingContext.PoolDetail.Data?.Units</MudText>
+<MudText>NativeDecimal: @BindingContext.PoolDetail.Data?.NativeDecimal</MudText>
+<MudText>SaversUnits: @BindingContext.PoolDetail.Data?.SaversUnits</MudText>
+<MudText>SaversDepth: @BindingContext.PoolDetail.Data?.SaversDepth</MudText>
 
 
 @code {

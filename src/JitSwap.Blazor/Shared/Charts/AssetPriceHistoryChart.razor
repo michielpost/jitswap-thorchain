@@ -1,0 +1,58 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistory" />
+@if (BindingContext.PoolDepthHistory.LoadingState != LoadingState.Finished) return;
+
+
+<ApexChart TItem="DepthHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="@($"{Asset} Price History")">
+
+    <ApexPointSeries TItem="DepthHistoryItem"
+                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Name="AssetPriceUSD"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToDecimal(e.AssetPriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+</ApexChart>
+
+
+@code {
+
+    [Parameter]
+    public string? Asset { get; set; }
+
+    private ApexChartOptions<DepthHistoryItem> options = ChartConfig.GetDefaultChartOptions<DepthHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+    }
+
+    protected override void OnParametersSet()
+    {
+        BindingContext.PoolDepthHistory.Clear();
+        base.OnParametersSet();
+    }
+
+    protected override async Task LoadDataAsync()
+    {
+        if (!string.IsNullOrEmpty(Asset))
+            await BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
+    }
+
+}

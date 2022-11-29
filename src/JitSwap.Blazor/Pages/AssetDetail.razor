@@ -8,14 +8,22 @@
     <MudGrid>
         <MudItem xs="12" sm="6" md="4">
             <MudPaper Elevation="2" Class="pa-4">
-               
-                <p>
-                    Param: @Asset
-                </p>
-
                 <PoolDetails Asset="@Asset" />
-
-
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4">
+                <PoolStats Asset="@Asset" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4">
+                <PoolDepthHistoryChart Asset="@Asset" />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4">
+                <AssetPriceHistoryChart Asset="@Asset" />
             </MudPaper>
         </MudItem>
     </MudGrid>

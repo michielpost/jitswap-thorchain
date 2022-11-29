@@ -109,6 +109,7 @@ namespace JitSwap.Blazor.ViewModels
         public void Clear()
         {
             this.LoadedDateTime = null;
+            this.ExpireDateTime = null;
             this.LoadingState = LoadingState.None;
             this.Data = null;
         }
