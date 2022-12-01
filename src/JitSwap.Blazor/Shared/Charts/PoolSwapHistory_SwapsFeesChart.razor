@@ -2,8 +2,8 @@
 @using Midgard;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistory" />
-@if (BindingContext.PoolSwapHistory.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryDataLoader" />
+@if (BindingContext.PoolSwapHistoryDataLoader.LoadingState != LoadingState.Finished) return;
 
 
 <ApexChart TItem="SwapHistoryItem"
@@ -12,7 +12,7 @@
            Title="@($"{Asset} Swap Fees")">
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Items="BindingContext.PoolSwapHistory!.Intervals"
                      Name="@($"to {Asset}")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -20,7 +20,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Items="BindingContext.PoolSwapHistory!.Intervals"
                      Name="to RUNE"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -28,7 +28,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Items="BindingContext.PoolSwapHistory!.Intervals"
                      Name="SynthMintVolume"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -36,7 +36,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Items="BindingContext.PoolSwapHistory!.Intervals"
                      Name="SynthRedeemVolume"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -75,7 +75,7 @@
 
     protected override void OnParametersSet()
     {
-        BindingContext.PoolSwapHistory.Clear();
+        BindingContext.PoolSwapHistoryDataLoader.Clear();
         base.OnParametersSet();
     }
 

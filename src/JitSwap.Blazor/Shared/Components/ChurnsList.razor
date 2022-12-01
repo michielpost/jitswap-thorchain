@@ -2,10 +2,10 @@
 @using System.Linq;
 
 <MudText Typo="Typo.h5">Churns List</MudText>
-<DataLoaderProgress DataLoader="BindingContext.ChurnList" />
-@if (BindingContext.ChurnList == null || BindingContext.ChurnList.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.ChurnListDataLoader" />
+@if (BindingContext.ChurnList == null || BindingContext.ChurnListDataLoader.LoadingState != LoadingState.Finished) return;
 
-<QuickGrid Items="@BindingContext.ChurnList.Data!.AsQueryable()" Pagination="@pagination">
+<QuickGrid Items="@BindingContext.ChurnList!.AsQueryable()" Pagination="@pagination">
     <PropertyColumn Property="@(p => p.Height)" Sortable="true" />
     <PropertyColumn Property="@(p => DateTimeOffsetExtensions.FromUnixTimeNanoseconds(long.Parse(p.Date)))" Format="yyyy-MM-dd hh:mm" Sortable="true" Title="Date" />
 </QuickGrid>

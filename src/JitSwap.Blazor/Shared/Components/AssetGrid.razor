@@ -3,9 +3,9 @@
 
 <MudText>Assets</MudText>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolsList" />
+<DataLoaderProgress DataLoader="BindingContext.PoolsListDataLoader" />
 
-@if (BindingContext.PoolsList.Data?.Any() ?? false && FilteredItems != null)
+@if (BindingContext.PoolsList?.Any() ?? false && FilteredItems != null)
 {
     <QuickGrid Items="@FilteredItems" ResizableColumns="true" Pagination="@pagination">
         <TemplateColumn Title="Asset" SortBy="sortByName">
@@ -52,6 +52,6 @@
     {
         await BindingContext.LoadPoolsList();
 
-        items = BindingContext.PoolsList?.Data?.AsQueryable();
+        items = BindingContext.PoolsList?.AsQueryable();
     }
 }

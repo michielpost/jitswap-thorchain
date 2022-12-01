@@ -2,8 +2,8 @@
 @using Midgard;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistory" />
-@if (BindingContext.PoolDepthHistory.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistoryDataLoader" />
+@if (BindingContext.PoolDepthHistoryDataLoader.LoadingState != LoadingState.Finished) return;
 
 
 <ApexChart TItem="DepthHistoryItem"
@@ -12,7 +12,7 @@
            Title="@($"{Asset} Price History")">
 
     <ApexPointSeries TItem="DepthHistoryItem"
-                     Items="BindingContext.PoolDepthHistory.Data!.Intervals"
+                     Items="BindingContext.PoolDepthHistory?.Intervals"
                      Name="@($"{Asset} price")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -48,7 +48,7 @@
 
     protected override void OnParametersSet()
     {
-        BindingContext.PoolDepthHistory.Clear();
+        BindingContext.PoolDepthHistoryDataLoader.Clear();
         base.OnParametersSet();
     }
 

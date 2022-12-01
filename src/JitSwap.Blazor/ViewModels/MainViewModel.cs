@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JitSwap.Blazor.Services;
+using JitSwap.Blazor.Shared.Components;
 using Midgard;
 
 namespace JitSwap.Blazor.ViewModels
@@ -14,61 +15,107 @@ namespace JitSwap.Blazor.ViewModels
         [NotifyPropertyChangedRecipients]
         private string? midgardUrl;
 
-        [ObservableProperty]
-        [NotifyPropertyChangedRecipients]
-        private DataLoader<List<string>> knownPoolsList = new();
+        //[ObservableProperty]
+        //[NotifyPropertyChangedRecipients]
+        //private string? currentAsset;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<List<PoolDetail>> poolsList = new();
+        private DataLoader knownPoolsListDataLoader = new();
+
+        [ObservableProperty]
+        private Dictionary<string,string>? knownPoolsList;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<Health> health = new();
+        private DataLoader poolsListDataLoader = new();
+
+        [ObservableProperty]
+        private List<PoolDetail>? poolsList;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<Network> networkData = new();
+        private DataLoader healthDataLoader = new();
+
+        [ObservableProperty]
+        private Health? health;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<StatsData> statsData = new();
+        private DataLoader networkDataDataLoader = new();
+
+        [ObservableProperty]
+        private Network? networkData;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<List<ChurnItem>> churnList = new();
+        private DataLoader statsDataDataLoader = new();
+
+        [ObservableProperty]
+        private StatsData? statsData;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<List<Node>> nodesList = new();
+        private DataLoader churnListDataLoader = new();
+
+        [ObservableProperty]
+        private List<ChurnItem>? churnList;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<PoolDetail> poolDetail = new();
+        private DataLoader nodesListDataLoader = new();
+
+        [ObservableProperty]
+        private List<Node>? nodesList;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedRecipients]
+        private DataLoader poolDetailDataLoader = new();
+
+        [ObservableProperty]
+        private PoolDetail? poolDetail;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients] 
-        private DataLoader<PoolStatsDetail> poolStatsDetail = new();
+        private DataLoader poolStatsDetailDataLoader = new();
+
+        [ObservableProperty]
+        private PoolStatsDetail? poolStatsDetail;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<DepthHistory> poolDepthHistory = new();
+        private DataLoader poolDepthHistoryDataLoader = new();
+
+        [ObservableProperty]
+        private DepthHistory? poolDepthHistory;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<EarningsHistory> earningsHistory = new();
+        private DataLoader earningsHistoryDataLoader = new();
+
+        [ObservableProperty]
+        private EarningsHistory? earningsHistory;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<SwapHistory> poolSwapHistory = new();
+        private DataLoader poolSwapHistoryDataLoader = new();
+
+        [ObservableProperty]
+        private SwapHistory? poolSwapHistory;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<TVLHistory> totalValueLockedHistory = new();
+        private DataLoader totalValueLockedHistoryDataLoader = new();
+
+        [ObservableProperty]
+        private TVLHistory? totalValueLockedHistory;
 
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
-        private DataLoader<LiquidityHistory> poolLiquidityHistory = new();
+        private DataLoader poolLiquidityHistoryDataLoader = new();
+
+        [ObservableProperty]
+        private LiquidityHistory? poolLiquidityHistory;
 
         //TODO:
         //Actions List (optional? address)
@@ -91,59 +138,58 @@ namespace JitSwap.Blazor.ViewModels
             this.storageService = storageService;
         }
 
-        public Task LoadHealth() => health.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync(), expire: TimeSpan.FromMinutes(1));
-        public Task LoadChurnList() => churnList.LoadAsync(async () => (await dataService.MidgardAPI!.GetChurnsAsync()).ToList(), expire: TimeSpan.FromMinutes(1));
-        public Task LoadNodesList() => nodesList.LoadAsync(async () => (await dataService.MidgardAPI!.GetNodesAsync()).ToList(), expire: TimeSpan.FromMinutes(1));
-        public Task LoadNetworkData() => networkData.LoadAsync(() => dataService.MidgardAPI!.GetNetworkDataAsync(), expire: TimeSpan.FromMinutes(1));
-        public Task LoadStats() => statsData.LoadAsync(() => dataService.MidgardAPI!.GetStatsAsync(), expire: TimeSpan.FromMinutes(1));
+        public Task LoadHealth() => healthDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync(), x => Health = x);
+        public Task LoadChurnList() => churnListDataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetChurnsAsync()).ToList(), x => ChurnList = x);
+        public Task LoadNodesList() => nodesListDataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetNodesAsync()).ToList(), x => NodesList = x);
+        public Task LoadNetworkData() => networkDataDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetNetworkDataAsync(), x => NetworkData = x);
+        public Task LoadStats() => statsDataDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetStatsAsync(), x => StatsData = x);
 
 
-        public Task LoadKnownPoolsList() => knownPoolsList.LoadAsync(async () => {
-            var apiAssets = await dataService.MidgardAPI!.GetKnownPoolsAsync();
-            return apiAssets.Where(x => x.Value == "available").Select(x => x.Key).ToList();
-        }, expire: TimeSpan.FromMinutes(1));
-        public Task LoadPoolsList() => poolsList.LoadAsync(async () => {
-            var apiAssets = await dataService.MidgardAPI!.GetPoolsAsync(Midgard.Status.Available, null);
-            return apiAssets.Where(x => x.Status == "available").Select(x => x).ToList();
-        }, expire: TimeSpan.FromMinutes(1));
+        public Task LoadKnownPoolsList() => knownPoolsListDataLoader.LoadAsync(async () => {
+            var result = await dataService.MidgardAPI!.GetKnownPoolsAsync();
+            return result.ToDictionary(x => x.Key, x => x.Value);
+        }, x => KnownPoolsList = x);
+        public Task LoadPoolsList() => poolsListDataLoader.LoadAsync(async () => {
+            var result = await dataService.MidgardAPI!.GetPoolsAsync(Midgard.Status.Available, null);
+            return result.ToList();
+        }, x => PoolsList = x);
 
-        public Task LoadPoolDetail(string asset, Period period) => poolDetail.LoadAsync(() => {
+        public Task LoadPoolDetail(string asset, Period period) => poolDetailDataLoader.LoadAsync(() => {
             return dataService.MidgardAPI!.GetPoolAsync(asset, period);
-        }, expire: TimeSpan.FromMinutes(1));
+        }, x => PoolDetail = x);
 
-        public Task LoadPoolStatsDetail(string asset, Period2 period) => poolStatsDetail.LoadAsync(() => {
+        public Task LoadPoolStatsDetail(string asset, Period2 period) => poolStatsDetailDataLoader.LoadAsync(() => {
             return dataService.MidgardAPI!.GetPoolStatsAsync(asset, period);
-        }, expire: TimeSpan.FromMinutes(1));
+        }, x => PoolStatsDetail = x);
 
-        //TODO: Chart
-        public Task LoadPoolDepthHistory(string pool, Interval interval, int count, long? to, long? from) => poolDepthHistory.LoadAsync(() => {
+
+        public Task LoadPoolDepthHistory(string pool, Interval interval, int count, long? to, long? from) 
+            => poolDepthHistoryDataLoader.LoadAsync(() => {
             return dataService.MidgardAPI!.GetDepthHistoryAsync(pool, interval, count, to, from);
-        }, expire: TimeSpan.FromMinutes(1));
+        }, x => PoolDepthHistory = x);
 
-        //TODO: Chart
         public Task LoadPoolSwapHistory(string? pool, Interval4 interval, int count, long? to, long? from)
-           => poolSwapHistory.LoadAsync(() => {
+           => poolSwapHistoryDataLoader.LoadAsync(() => {
                return dataService.MidgardAPI!.GetSwapHistoryAsync(pool, interval, count, to, from);
-           }, expire: TimeSpan.FromMinutes(1));
+           }, x => PoolSwapHistory = x);
 
         //TODO: Chart
         public Task LoadPoolLiquidityHistory(string? pool, Interval3 interval, int count, long? to, long? from)
-          => poolLiquidityHistory.LoadAsync(() => {
+          => poolLiquidityHistoryDataLoader.LoadAsync(() => {
               return dataService.MidgardAPI!.GetLiquidityHistoryAsync(pool, interval, count, to, from);
-          }, expire: TimeSpan.FromMinutes(1));
-
+          }, x => PoolLiquidityHistory = x);
 
 
 
         //TODO: Chart
-        public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => earningsHistory.LoadAsync(() => {
+        public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => earningsHistoryDataLoader.LoadAsync(() => {
             return dataService.MidgardAPI!.GetEarningsHistoryAsync(interval, count, to, from);
-        }, expire: TimeSpan.FromMinutes(1));
+        }, x => EarningsHistory = x);
 
         //TODO: Chart
-        public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => totalValueLockedHistory.LoadAsync(() => {
+        public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => totalValueLockedHistoryDataLoader.LoadAsync(() => {
             return dataService.MidgardAPI!.GetTVLHistoryAsync(interval, count, to, from);
-        }, expire: TimeSpan.FromMinutes(1));
+        }, x => TotalValueLockedHistory = x);
 
 
 
@@ -156,20 +202,20 @@ namespace JitSwap.Blazor.ViewModels
 
                 dataService.Init(value);
 
-                knownPoolsList.Clear();
-                poolsList.Clear();
-                health.Clear();
-                networkData.Clear();
-                statsData.Clear();
-                churnList.Clear();
-                nodesList.Clear();
-                poolDetail.Clear();
-                poolStatsDetail.Clear();
-                poolDepthHistory.Clear();
-                earningsHistory.Clear();
-                poolSwapHistory.Clear();
-                totalValueLockedHistory.Clear();
-                poolLiquidityHistory.Clear();
+                knownPoolsListDataLoader.Clear();
+                poolsListDataLoader.Clear();
+                healthDataLoader.Clear();
+                networkDataDataLoader.Clear();
+                statsDataDataLoader.Clear();
+                churnListDataLoader.Clear();
+                nodesListDataLoader.Clear();
+                poolDetailDataLoader.Clear();
+                poolStatsDetailDataLoader.Clear();
+                poolDepthHistoryDataLoader.Clear();
+                earningsHistoryDataLoader.Clear();
+                poolSwapHistoryDataLoader.Clear();
+                totalValueLockedHistoryDataLoader.Clear();
+                poolLiquidityHistoryDataLoader.Clear();
             }
            
         }

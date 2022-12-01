@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace JitSwap.Blazor.Pages
 {
-    public abstract class MvvmComponentBase<T> : ComponentBase where T : class, System.ComponentModel.INotifyPropertyChanged
+    public abstract class MvvmComponentBase<T> : ComponentBase, IDisposable where T : class, System.ComponentModel.INotifyPropertyChanged
     {
         [Inject]
         public T BindingContext { get; set; } = default!;
@@ -41,6 +41,11 @@ namespace JitSwap.Blazor.Pages
         protected virtual Task LoadDataAsync()
         {
             return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            BindingContext.PropertyChanged -= BindingContext_PropertyChanged;
         }
     }
 }

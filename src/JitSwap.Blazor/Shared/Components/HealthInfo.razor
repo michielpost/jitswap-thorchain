@@ -1,32 +1,32 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">API Health</MudText>
-<DataLoaderProgress DataLoader="BindingContext.Health" />
-@if (BindingContext.Health.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.HealthDataLoader" />
+@if (BindingContext.HealthDataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Database: @BindingContext.Health.Data?.Database</MudText>
-<MudText>Scanner height: @BindingContext.Health.Data?.ScannerHeight</MudText>
-<MudText>InSync: @BindingContext.Health.Data?.InSync</MudText>
+<MudText>Database: @BindingContext.Health?base</MudText>
+<MudText>Scanner height: @BindingContext.Health?.ScannerHeight</MudText>
+<MudText>InSync: @BindingContext.Health?.InSync</MudText>
 
 <br />
 <MudText>Last Thor Node</MudText>
-<MudText>Height: @BindingContext.Health.Data?.LastThorNode.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health.Data?.LastThorNode.Timestamp))</MudText>
+<MudText>Height: @BindingContext.Health?.LastThorNode.Height</MudText>
+<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health?.LastThorNode.Timestamp))</MudText>
 
 <br />
 <MudText>Last Fetched</MudText>
-<MudText>Height: @BindingContext.Health.Data?.LastFetched.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health.Data?.LastFetched.Timestamp))</MudText>
+<MudText>Height: @BindingContext.Health?.LastFetched.Height</MudText>
+<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health?.LastFetched.Timestamp))</MudText>
 
 <br />
 <MudText>Last Committed</MudText>
-<MudText>Height: @BindingContext.Health.Data?.LastCommitted.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health.Data?.LastCommitted.Timestamp))</MudText>
+<MudText>Height: @BindingContext.Health?.LastCommitted.Height</MudText>
+<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health?.LastCommitted.Timestamp))</MudText>
 
 <br />
 <MudText>Last Aggregated</MudText>
-<MudText>Height: @BindingContext.Health.Data?.LastAggregated.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health.Data?.LastAggregated.Timestamp))</MudText>
+<MudText>Height: @BindingContext.Health?.LastAggregated.Height</MudText>
+<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.Health?.LastAggregated.Timestamp))</MudText>
 
 @code {
 
