@@ -13,7 +13,7 @@
 
     <ApexPointSeries TItem="DepthHistoryItem"
                      Items="BindingContext.PoolDepthHistory.Data!.Intervals"
-                     Name="AssetPriceUSD"
+                     Name="@($"{Asset} price")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToDecimal(e.AssetPriceUSD)))"

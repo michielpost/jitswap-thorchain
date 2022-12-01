@@ -75,6 +75,7 @@
         options.Yaxis = new List<YAxis>();
         options.Yaxis.Add(new YAxis
             {
+                Title = new AxisTitle { Text = "Depth" },
                 Labels = new YAxisLabels
                 {
                     Formatter = @"function (value) {
@@ -82,6 +83,16 @@
                 }
             }
         );
+        options.Yaxis.Add(new YAxis
+            {
+                Title = new AxisTitle { Text = Asset },
+                Opposite = true,
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return Number(value).toLocaleString();}"
+                }
+            });
         options.Chart = new Chart { Group = "dateSync" };
 
         base.OnInitialized();

@@ -1,0 +1,91 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistory" />
+@if (BindingContext.PoolSwapHistory.LoadingState != LoadingState.Finished) return;
+
+
+<ApexChart TItem="SwapHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="@($"{Asset} Swap Totals")">
+
+    <ApexPointSeries TItem="SwapHistoryItem"
+                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Name="total volume"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalVolume) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+      <ApexPointSeries TItem="SwapHistoryItem"
+                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Name="total count"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalCount)))"
+                     OrderBy="e=>e.X" />
+
+    <ApexPointSeries TItem="SwapHistoryItem"
+                     Items="BindingContext.PoolSwapHistory.Data!.Intervals"
+                     Name="total volume"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalFees) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+</ApexChart>
+
+
+@code {
+
+    [Parameter]
+    public string? Asset { get; set; }
+
+    private ApexChartOptions<SwapHistoryItem> options = ChartConfig.GetDefaultChartOptions<SwapHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Title = new AxisTitle { Text = "Volume" },
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+
+        options.Yaxis.Add(new YAxis
+        {
+            Title = new AxisTitle { Text = "Count" },
+            Opposite = true,
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return Number(value).toLocaleString();}"
+                }
+        });
+     
+
+        options.Chart = new Chart { Group = "dateSync" };
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        BindingContext.PoolSwapHistory.Clear();
+        base.OnParametersSet();
+    }
+
+    protected override async Task LoadDataAsync()
+    {
+        if (!string.IsNullOrEmpty(Asset))
+            await BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);
+    }
+
+}
