@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace JitSwap.Blazor.ViewModels
+namespace webvNext.DataLoader
 {
     /// <summary>
     /// Possible loading states for the DataLoader
@@ -36,7 +35,6 @@ namespace JitSwap.Blazor.ViewModels
 
 
         private bool _swallowExceptions;
-        //private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         [ObservableProperty]
         private bool isLoading;
@@ -54,7 +52,7 @@ namespace JitSwap.Blazor.ViewModels
         /// <param name="resultCallback"></param>
         /// <param name="errorCallback">optional error callback. Fires when exceptino is thrown in loadingMethod</param>
         /// <returns></returns>
-        public async Task<T?> LoadAsync<T>(Func<Task<T>> loadingMethod, Action<T>? resultCallback = null, Action<Exception>? errorCallback = null) where T : class, new()
+        public async Task<T?> LoadAsync<T>(Func<Task<T?>> loadingMethod, Action<T?>? resultCallback = null, Action<Exception>? errorCallback = null) where T : class
         {
             //await semaphoreSlim.WaitAsync();
             //try

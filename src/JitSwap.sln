@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JitSwap.Blazor", "JitSwap.Blazor\JitSwap.Blazor.csproj", "{63528391-7959-46AC-91BA-64A35C472D7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webvNext.DataLoader", "webvNext.DataLoader\webvNext.DataLoader.csproj", "{997A14CC-DB01-4CE1-8042-267A05BDDC99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{63528391-7959-46AC-91BA-64A35C472D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63528391-7959-46AC-91BA-64A35C472D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63528391-7959-46AC-91BA-64A35C472D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997A14CC-DB01-4CE1-8042-267A05BDDC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997A14CC-DB01-4CE1-8042-267A05BDDC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997A14CC-DB01-4CE1-8042-267A05BDDC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997A14CC-DB01-4CE1-8042-267A05BDDC99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

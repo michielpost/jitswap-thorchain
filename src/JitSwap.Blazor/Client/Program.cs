@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using System.Reflection;
+using webvNext.DataLoader.Cache;
 
 namespace JitSwap.Blazor
 {
@@ -58,6 +59,9 @@ namespace JitSwap.Blazor
             //Services
             services.AddScoped<DataService>();
             services.AddScoped<StorageService>();
+
+            services.AddSingleton<MemoryDataCache>();
+
 
             //Register ViewModels
             services.AddScoped<MainViewModel>();
