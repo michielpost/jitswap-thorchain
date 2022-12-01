@@ -43,6 +43,7 @@ namespace JitSwap.Blazor.ViewModels
 
 
         private bool _swallowExceptions;
+        //private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         [ObservableProperty]
         private bool isLoading;
@@ -57,7 +58,7 @@ namespace JitSwap.Blazor.ViewModels
 
         public DateTimeOffset? ExpireDateTime { get; set; }
 
-        public bool IsExpired => !LoadedDateTime.HasValue || (ExpireDateTime.HasValue && ExpireDateTime > LoadedDateTime);
+        public bool IsExpired => !LoadedDateTime.HasValue || (ExpireDateTime.HasValue && ExpireDateTime < DateTimeOffset.UtcNow);
 
         /// <summary>
         ///  Load data. Errors will be in errorcallback
@@ -67,43 +68,54 @@ namespace JitSwap.Blazor.ViewModels
         /// <param name="resultCallback"></param>
         /// <param name="errorCallback">optional error callback. Fires when exceptino is thrown in loadingMethod</param>
         /// <returns></returns>
-        public async Task<T?> LoadAsync(Func<Task<T>> loadingMethod, Action<T>? resultCallback = null, Action<Exception>? errorCallback = null)
+        public async Task<T?> LoadAsync(Func<Task<T>> loadingMethod, Action<T>? resultCallback = null, Action<Exception>? errorCallback = null, TimeSpan? expire = null)
         {
             if (!IsExpired)
                 return Data;
 
-            //Set loading state
-            LoadingState = LoadingState.Loading;
+            //await semaphoreSlim.WaitAsync();
+            //try
+            //{
+                //Set loading state
+                LoadingState = LoadingState.Loading;
 
-            T? result = default;
+                T? result = default;
 
-            try
-            {
-                result = await loadingMethod();
+                try
+                {
+                    result = await loadingMethod();
 
-                //Set finished state
-                LoadingState = LoadingState.Finished;
-                LoadedDateTime = DateTimeOffset.UtcNow;
+                    //Set finished state
+                    LoadingState = LoadingState.Finished;
+                    LoadedDateTime = DateTimeOffset.UtcNow;
+                    
+                    if(expire.HasValue)
+                        ExpireDateTime = LoadedDateTime.Value.Add(expire.Value);
 
-                if (resultCallback != null)
-                    resultCallback(result);
+                    if (resultCallback != null)
+                        resultCallback(result);
 
-            }
-            catch (Exception e)
-            {
-                //Set error state
-                LoadingState = LoadingState.Error;
+                }
+                catch (Exception e)
+                {
+                    //Set error state
+                    LoadingState = LoadingState.Error;
 
-                if (errorCallback != null)
-                    errorCallback(e);
-                else if (!_swallowExceptions) //swallow exception if _swallowExceptions is true
-                    throw; //throw error if no callback is defined
+                    if (errorCallback != null)
+                        errorCallback(e);
+                    else if (!_swallowExceptions) //swallow exception if _swallowExceptions is true
+                        throw; //throw error if no callback is defined
 
-            }
+                }
 
-            Data = result;
+                Data = result;
 
-            return result;
+                return result;
+            //}
+            //finally
+            //{
+            //    semaphoreSlim.Release();
+            //}
         }
 
         public void Clear()
