@@ -6,7 +6,8 @@
 @if (BindingContext.PoolDepthHistory.LoadingState != LoadingState.Finished) return;
 
 
-<ApexChart TItem="DepthHistoryItem"
+<ApexChart @ref="chart"
+           TItem="DepthHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
            Title="@($"{Asset} Liquidity History")">
@@ -67,6 +68,7 @@
     public string? Asset { get; set; }
 
     private ApexChartOptions<DepthHistoryItem> options = ChartConfig.GetDefaultChartOptions<DepthHistoryItem>();
+    private ApexChart<DepthHistoryItem>? chart;
 
     protected override void OnInitialized()
     {
@@ -80,6 +82,8 @@
                 }
             }
         );
+
+        base.OnInitialized();
     }
 
     protected override void OnParametersSet()

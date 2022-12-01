@@ -170,19 +170,9 @@ namespace JitSwap.Blazor.ViewModels
                 poolSwapHistory.Clear();
                 totalValueLockedHistory.Clear();
                 poolLiquidityHistory.Clear();
-
-                this.InitializeAsync();
             }
            
         }
-
-        private async Task InitializeAsync()
-        {
-            //await LoadKnownPoolsAsync();
-            //await LoadPoolDetailsAsync();
-        }
-
-       
         
     }
 }
