@@ -98,12 +98,6 @@
         base.OnInitialized();
     }
 
-    protected override void OnParametersSet()
-    {
-        BindingContext.PoolDepthHistoryDataLoader.Clear();
-        base.OnParametersSet();
-    }
-
     protected override async Task LoadDataAsync()
     {
         if (!string.IsNullOrEmpty(Asset))

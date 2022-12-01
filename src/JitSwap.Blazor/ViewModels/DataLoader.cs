@@ -201,11 +201,5 @@ namespace JitSwap.Blazor.ViewModels
                 }
             }
         }
-
-        public void Clear()
-        {
-            this.LoadedDateTime = null;
-            this.LoadingState = LoadingState.None;
-        }
     }
 }

@@ -201,21 +201,6 @@ namespace JitSwap.Blazor.ViewModels
                 storageService.SetApiUrl(value);
 
                 dataService.Init(value);
-
-                knownPoolsListDataLoader.Clear();
-                poolsListDataLoader.Clear();
-                healthDataLoader.Clear();
-                networkDataDataLoader.Clear();
-                statsDataDataLoader.Clear();
-                churnListDataLoader.Clear();
-                nodesListDataLoader.Clear();
-                poolDetailDataLoader.Clear();
-                poolStatsDetailDataLoader.Clear();
-                poolDepthHistoryDataLoader.Clear();
-                earningsHistoryDataLoader.Clear();
-                poolSwapHistoryDataLoader.Clear();
-                totalValueLockedHistoryDataLoader.Clear();
-                poolLiquidityHistoryDataLoader.Clear();
             }
            
         }

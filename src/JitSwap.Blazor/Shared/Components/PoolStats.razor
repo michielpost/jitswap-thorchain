@@ -52,12 +52,6 @@
     [Parameter]
     public string? Asset { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        BindingContext.PoolStatsDetailDataLoader.Clear();
-        base.OnParametersSet();
-    }
-
     protected override async Task LoadDataAsync()
     {
         if(!string.IsNullOrEmpty(Asset))
