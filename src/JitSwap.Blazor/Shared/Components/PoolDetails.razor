@@ -22,16 +22,3 @@
 <MudText>SaversUnits: @BindingContext.PoolDetail?.SaversUnits</MudText>
 <MudText>SaversDepth: @BindingContext.PoolDetail?.SaversDepth</MudText>
 
-
-@code {
-
-    [Parameter]
-    public string? Asset { get; set; }
-
-    protected override async Task LoadDataAsync()
-    {
-        if(!string.IsNullOrEmpty(Asset))
-            await BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
-    }
-
-}

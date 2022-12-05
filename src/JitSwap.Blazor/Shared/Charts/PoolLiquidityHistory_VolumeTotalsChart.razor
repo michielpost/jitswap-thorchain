@@ -1,0 +1,55 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.PoolLiquidityHistoryDataLoader" />
+@if (BindingContext.PoolLiquidityHistoryDataLoader.LoadingState != LoadingState.Finished) return;
+
+
+<ApexChart TItem="LiquidityHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="@($"{BindingContext.SelectedAsset} Swap Totals")">
+
+    <ApexPointSeries TItem="LiquidityHistoryItem"
+                     Items="BindingContext.PoolLiquidityHistory!.Intervals"
+                     Name="add volume"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.AddLiquidityVolume) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+    <ApexPointSeries TItem="LiquidityHistoryItem"
+                     Items="BindingContext.PoolLiquidityHistory!.Intervals"
+                     Name="withdraw volume"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.WithdrawVolume) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+</ApexChart>
+
+
+@code {
+
+    private ApexChartOptions<LiquidityHistoryItem> options = ChartConfig.GetDefaultChartOptions<LiquidityHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Title = new AxisTitle { Text = "Volume" },
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+
+        options.Chart = new Chart { Group = "dateSync" };
+
+        base.OnInitialized();
+    }
+}

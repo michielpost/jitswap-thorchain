@@ -8,6 +8,26 @@ namespace JitSwap.Blazor.Pages
         [Parameter]
         public string? Asset { get; set; }
 
+        protected override void OnParametersSet()
+        {
+            BindingContext.SelectedAsset = Asset;
 
+            base.OnParametersSet();
+        }
+
+        protected override async Task LoadDataAsync()
+        {
+            if (!string.IsNullOrEmpty(Asset))
+            {
+                await BindingContext.LoadPoolStatsDetail(Asset, Midgard.Period2._30d);
+                await BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
+
+                await BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
+                await BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);
+                await BindingContext.LoadPoolLiquidityHistory(Asset, Midgard.Interval3.Day, 30, null, null);
+            }
+
+            await base.LoadDataAsync();
+        }
     }
 }

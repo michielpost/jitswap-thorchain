@@ -44,18 +44,3 @@
 <MudText>WithdrawCount: @BindingContext.PoolStatsDetail?.WithdrawCount</MudText>
 <MudText>UniqueMemberCount: @BindingContext.PoolStatsDetail?.UniqueMemberCount</MudText>
 
-
-
-
-@code {
-
-    [Parameter]
-    public string? Asset { get; set; }
-
-    protected override async Task LoadDataAsync()
-    {
-        if(!string.IsNullOrEmpty(Asset))
-            await BindingContext.LoadPoolStatsDetail(Asset, Midgard.Period2._30d);
-    }
-
-}

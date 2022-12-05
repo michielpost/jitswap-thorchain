@@ -19,6 +19,10 @@ namespace JitSwap.Blazor.ViewModels
         [NotifyPropertyChangedRecipients]
         private string? midgardUrl;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedRecipients]
+        private string? selectedAsset;
+
         //[ObservableProperty]
         //[NotifyPropertyChangedRecipients]
         //private string? currentAsset;

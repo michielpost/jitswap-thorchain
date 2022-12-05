@@ -9,11 +9,11 @@
 <ApexChart TItem="SwapHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{Asset} Swap Count")">
+           Title="@($"{BindingContext.SelectedAsset} Swap Count")">
 
     <ApexPointSeries TItem="SwapHistoryItem"
                      Items="BindingContext.PoolSwapHistory!.Intervals"
-                     Name="@($"to {Asset}")"
+                     Name="@($"to {BindingContext.SelectedAsset}")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.ToAssetCount)))"
@@ -50,9 +50,6 @@
 
 @code {
 
-    [Parameter]
-    public string? Asset { get; set; }
-
     private ApexChartOptions<SwapHistoryItem> options = ChartConfig.GetDefaultChartOptions<SwapHistoryItem>();
 
     protected override void OnInitialized()
@@ -71,11 +68,4 @@
 
         base.OnInitialized();
     }
-
-    protected override async Task LoadDataAsync()
-    {
-        if (!string.IsNullOrEmpty(Asset))
-            await BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);
-    }
-
 }

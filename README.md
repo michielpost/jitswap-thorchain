@@ -30,8 +30,8 @@ Live version:
 
 ## TODO
 - Auto cache data in dataloader, with expire time
-- Move dataloader to seperate package
-- Charts
+- Charts, API switchen fix
+- network charts
 - Humanizer
 - Settings page (API url and other settings)
 

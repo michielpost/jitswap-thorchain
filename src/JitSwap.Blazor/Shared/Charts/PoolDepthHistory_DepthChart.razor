@@ -10,7 +10,7 @@
            TItem="DepthHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{Asset} Liquidity History")">
+           Title="@($"{BindingContext.SelectedAsset} Liquidity History")">
 
     <ApexPointSeries TItem="DepthHistoryItem"
                      Items="BindingContext.PoolDepthHistory!.Intervals"
@@ -22,7 +22,7 @@
 
     <ApexPointSeries TItem="DepthHistoryItem"
                      Items="BindingContext.PoolDepthHistory!.Intervals"
-                     Name="@Asset"
+                     Name="@BindingContext.SelectedAsset"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.AssetDepth) / 100000000))"
@@ -64,9 +64,6 @@
 
 @code {
 
-    [Parameter]
-    public string? Asset { get; set; }
-
     private ApexChartOptions<DepthHistoryItem> options = ChartConfig.GetDefaultChartOptions<DepthHistoryItem>();
     private ApexChart<DepthHistoryItem>? chart;
 
@@ -85,7 +82,7 @@
         );
         options.Yaxis.Add(new YAxis
             {
-                Title = new AxisTitle { Text = Asset },
+                Title = new AxisTitle { Text = BindingContext.SelectedAsset },
                 Opposite = true,
                 Labels = new YAxisLabels
                 {
@@ -96,12 +93,6 @@
         options.Chart = new Chart { Group = "dateSync" };
 
         base.OnInitialized();
-    }
-
-    protected override async Task LoadDataAsync()
-    {
-        if (!string.IsNullOrEmpty(Asset))
-            await BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
     }
 
 }
