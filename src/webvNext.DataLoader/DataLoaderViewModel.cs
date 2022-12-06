@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace webvNext.DataLoader
 {
-    [ObservableObject]
-    public partial class DataLoaderViewModel<T> where T : class
+    public partial class DataLoaderViewModel<T> : ObservableObject where T : class
     {
         [ObservableProperty]
         private DataLoader dataLoader = new DataLoader();
