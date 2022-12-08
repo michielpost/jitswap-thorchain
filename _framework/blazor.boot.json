@@ -10,7 +10,7 @@
       "Blazor-ApexCharts.dll": "sha256-15a08MS1dcFdtIKSUI2+XC6CAqKAGKMllHX66tLihcM=",
       "Blazored.LocalStorage.dll": "sha256-eXVgTw72kEn74FZgDQbLtvAmXbiZDSj5gzUnxVmwowQ=",
       "CommunityToolkit.Mvvm.dll": "sha256-QyUW+7VcRgHrhy9yzkHUhIvNn1s4FWClhmKDHHFKnFk=",
-      "JitSwap.Blazor.dll": "sha256-UlShlvEsLRP\/VAzg85EvoEHtxqbXKU+bOZrew\/LAPUQ=",
+      "JitSwap.Blazor.dll": "sha256-3UEjBKrvtZw0znN9b7yMS4cV9kI8kcfDCEBTpjrsvHU=",
       "Microsoft.AspNetCore.Components.dll": "sha256-1Bs\/QCMmquZDiKYOBLh33RQNzqPhzLjmP6aAbLqJa2U=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-3SUOUqqapHhh85LmDZm84Qreqcj3Gy5qHzOLd\/O2RZ8=",
       "Microsoft.AspNetCore.Components.QuickGrid.dll": "sha256-PW\/wHFaTp8vYiuguHaQ3AwRZufEAL3poOUlA2LvA0BA=",
@@ -43,7 +43,7 @@
       "System.Net.Http.dll": "sha256-Y5ffuwY\/eZiLb4guvXtt31C8Jfba9Uq4zrYbErVKl1U=",
       "System.Net.Primitives.dll": "sha256-G3lpICrr7JxWP3W4iKRvLTN0l0lCIO6bU+NqhBR\/BLU=",
       "System.ObjectModel.dll": "sha256-QKNidOxzYYfrUFQuhJHkTb6GUjME9j0htOwBfr0g9Q4=",
-      "System.Private.CoreLib.dll": "sha256-crxyhIMb4HuIttTnXK6L5dAQ6CVYaMvvahGzgcRUWDc=",
+      "System.Private.CoreLib.dll": "sha256-autOKheMj2Ugz7uvgZsmf4fTdDY\/ebwr+4GKPa7FGBE=",
       "System.Private.Uri.dll": "sha256-u8Hqn9e2JkvScW1xeupFYggWS6\/ECY6BjLEwR1ecdEQ=",
       "System.Runtime.dll": "sha256-UnyrEHkxR9Po4FxP\/NLkYLIkbBu89qTwWKi0Pp\/MA4w=",
       "System.Runtime.InteropServices.JavaScript.dll": "sha256-zhBgy7xQKCG4WzbFKZAvKiQtQ6+lbW4xn63UUC0Hvac=",
@@ -52,7 +52,7 @@
       "System.Text.Json.dll": "sha256-h\/Zno7n4zufQnmTn5dhZDYfgiPMZTjVfaQ178PR8Z5k=",
       "System.Text.RegularExpressions.dll": "sha256-t1tyUFz+GU4RtvzICnQRGfhayI8SfCJzbBmmdkn5tZk=",
       "System.Threading.dll": "sha256-UlxH1JQ36gPeBBB159hUnzi9gOi369dMtkWUApGgMyA=",
-      "webvNext.DataLoader.dll": "sha256-c3cgwY6M3m\/gCG8n9sBGMp1OuBi5XVz0P5g\/N73VWI4="
+      "webvNext.DataLoader.dll": "sha256-T5QOtzXp7BVpv2jJDAmAlLaKJPkVpumF6FCKCCdrSRc="
     },
     "extensions": null,
     "lazyAssembly": null,
