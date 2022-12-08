@@ -23,7 +23,7 @@ namespace webvNext.DataLoader.Cache
         /// <param name="forceRefresh"></param>
         /// <param name="serializerType">JSON or XML serializer</param>
         /// <returns></returns>
-        public async Task<T?> GetAsync<T>(string key, Func<Task<T>> generate, DateTimeOffset? expireDate = null, bool forceRefresh = false)
+        public async Task<T?> GetAsync<T>(string key, Func<Task<T>> generate, TimeSpan? cacheDuration = null, bool forceRefresh = false)
         {
             T? value;
 
@@ -40,7 +40,7 @@ namespace webvNext.DataLoader.Cache
             }
 
             value = await generate().ConfigureAwait(false);
-            Set(key, value, expireDate);
+            Set(key, value, cacheDuration.HasValue ? DateTimeOffset.UtcNow.Add(cacheDuration.Value) : null);
 
             return value;
 

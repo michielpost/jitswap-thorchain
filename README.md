@@ -27,10 +27,11 @@ Live version:
     - https://containers.dev
 - Local Storage
     - https://github.com/Blazored/LocalStorage
+- DataLoader
+    - For easy databinding
+    - Used with MemoryCache
 
 ## TODO
-- Auto cache data in dataloader, with expire time
-- Charts, API switchen fix
 - network charts
 - Humanizer
 - Settings page (API url and other settings)
