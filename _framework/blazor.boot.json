@@ -10,7 +10,7 @@
       "Blazor-ApexCharts.dll": "sha256-15a08MS1dcFdtIKSUI2+XC6CAqKAGKMllHX66tLihcM=",
       "Blazored.LocalStorage.dll": "sha256-eXVgTw72kEn74FZgDQbLtvAmXbiZDSj5gzUnxVmwowQ=",
       "CommunityToolkit.Mvvm.dll": "sha256-QyUW+7VcRgHrhy9yzkHUhIvNn1s4FWClhmKDHHFKnFk=",
-      "JitSwap.Blazor.dll": "sha256-lsh\/nXP1sdAS86C9A9YfD7FgUVVogaDD8KMKod+bWUU=",
+      "JitSwap.Blazor.dll": "sha256-UlShlvEsLRP\/VAzg85EvoEHtxqbXKU+bOZrew\/LAPUQ=",
       "Microsoft.AspNetCore.Components.dll": "sha256-1Bs\/QCMmquZDiKYOBLh33RQNzqPhzLjmP6aAbLqJa2U=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-3SUOUqqapHhh85LmDZm84Qreqcj3Gy5qHzOLd\/O2RZ8=",
       "Microsoft.AspNetCore.Components.QuickGrid.dll": "sha256-PW\/wHFaTp8vYiuguHaQ3AwRZufEAL3poOUlA2LvA0BA=",
@@ -27,7 +27,7 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-eXvGx2jcjpTPEJoAHBsW\/VuMPbNyyU+AsuhPmkzSSRY=",
       "Microsoft.JSInterop.dll": "sha256-g+awamr+ZGiUZQTvzactZtSOMCpXgitqoOwBmyjQwBM=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-gAM0U1w98ffRNyjMybCtgJeQFGgmxqc7CH1\/UxP2p2o=",
-      "MudBlazor.dll": "sha256-z3tcctbfavrS84Rqkas+42QKLzmD017ZdPQ5PbLKRck=",
+      "MudBlazor.dll": "sha256-Asfjmifsnwwpy2lpYt59Lv4wHeccPyfAzvUsVGGHA3Q=",
       "System.Collections.Concurrent.dll": "sha256-l8udAsvnXgWy1N+f5Zvkm+DfxgS8yy2qbyCBhRK3eD4=",
       "System.Collections.dll": "sha256-YYjgfOC6YTAyl561+fqYEYc16jjoOjCkFmodTmqWcLc=",
       "System.ComponentModel.Annotations.dll": "sha256-YXgZOzIsc4ka+K71r3lVrp9Qn1uklelaqtxR0LnrLA0=",
@@ -52,7 +52,7 @@
       "System.Text.Json.dll": "sha256-h\/Zno7n4zufQnmTn5dhZDYfgiPMZTjVfaQ178PR8Z5k=",
       "System.Text.RegularExpressions.dll": "sha256-t1tyUFz+GU4RtvzICnQRGfhayI8SfCJzbBmmdkn5tZk=",
       "System.Threading.dll": "sha256-UlxH1JQ36gPeBBB159hUnzi9gOi369dMtkWUApGgMyA=",
-      "webvNext.DataLoader.dll": "sha256-37+xE3yBMppTEh8ZGuJd5pkZo6t9hriuAhK6Qyd+IsU="
+      "webvNext.DataLoader.dll": "sha256-c3cgwY6M3m\/gCG8n9sBGMp1OuBi5XVz0P5g\/N73VWI4="
     },
     "extensions": null,
     "lazyAssembly": null,
