@@ -1,4 +1,5 @@
 ﻿using JitSwap.Blazor.ViewModels;
+using static MudBlazor.CategoryTypes;
 
 namespace JitSwap.Blazor.Pages
 {
@@ -9,6 +10,10 @@ namespace JitSwap.Blazor.Pages
             base.OnInitialized();
         }
 
-        
+        protected override async Task LoadDataAsync()
+        {
+            BindingContext.LoadPoolsList();
+        }
+
     }
 }

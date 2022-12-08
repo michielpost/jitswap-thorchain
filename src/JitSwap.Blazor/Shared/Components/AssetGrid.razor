@@ -3,9 +3,9 @@
 
 <MudText>Assets</MudText>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolsListDataLoader" />
+<DataLoaderProgress DataLoader="BindingContext.PoolsListVM.DataLoader" />
 
-@if (BindingContext.PoolsList?.Any() ?? false && FilteredItems != null)
+@if (BindingContext.PoolsListVM.Data?.Any() ?? false && FilteredItems != null)
 {
     <QuickGrid Items="@FilteredItems" ResizableColumns="true" Pagination="@pagination">
         <TemplateColumn Title="Asset" SortBy="sortByName">
@@ -39,19 +39,18 @@
 }
 
 @code {
-    IQueryable<PoolDetail>? items;
     PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
     string nameFilter = string.Empty;
 
     GridSort<PoolDetail> sortByName = GridSort<PoolDetail>
       .ByAscending(p => p.Asset);
 
-    IQueryable<PoolDetail>? FilteredItems => items?.Where(x => x.Asset.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
+    IQueryable<PoolDetail>? FilteredItems => BindingContext.PoolsListVM.Data?.AsQueryable()?.Where(x => x.Asset.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 
-    protected override async Task LoadDataAsync()
+    protected override void OnInitialized()
     {
-        await BindingContext.LoadPoolsList();
+        WatchDataLoaderVM(BindingContext.PoolsListVM);
 
-        items = BindingContext.PoolsList?.AsQueryable();
+        base.OnInitialized();
     }
 }

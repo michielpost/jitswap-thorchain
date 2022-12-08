@@ -2,23 +2,31 @@
 @inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Pool Details</MudText>
-<DataLoaderProgress DataLoader="BindingContext.PoolDetailDataLoader" />
-@if (BindingContext.PoolDetailDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolDetailVM.DataLoader" />
+@if (BindingContext.PoolDetailVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Asset: @BindingContext.PoolDetail?.Asset</MudText>
-<MudText>Volume24h: @BindingContext.PoolDetail?.Volume24h</MudText>
-<MudText>AssetDepth: @BindingContext.PoolDetail?.AssetDepth</MudText>
-<MudText>RuneDepth: @BindingContext.PoolDetail?.RuneDepth</MudText>
-<MudText>AssetPrice: @BindingContext.PoolDetail?.AssetPrice</MudText>
-<MudText>AssetPriceUSD: @BindingContext.PoolDetail?.AssetPriceUSD</MudText>
-<MudText>AnnualPercentageRate: @BindingContext.PoolDetail?.AnnualPercentageRate</MudText>
-<MudText>PoolAPY: @BindingContext.PoolDetail?.PoolAPY</MudText>
-<MudText>Status: @BindingContext.PoolDetail?.Status</MudText>
-<MudText>LiquidityUnits: @BindingContext.PoolDetail?.LiquidityUnits</MudText>
-<MudText>SynthUnits: @BindingContext.PoolDetail?.SynthUnits</MudText>
-<MudText>SynthSupply: @BindingContext.PoolDetail?.SynthSupply</MudText>
-<MudText>Units: @BindingContext.PoolDetail?.Units</MudText>
-<MudText>NativeDecimal: @BindingContext.PoolDetail?.NativeDecimal</MudText>
-<MudText>SaversUnits: @BindingContext.PoolDetail?.SaversUnits</MudText>
-<MudText>SaversDepth: @BindingContext.PoolDetail?.SaversDepth</MudText>
+<MudText>Asset: @BindingContext.PoolDetailVM.Data?.Asset</MudText>
+<MudText>Volume24h: @BindingContext.PoolDetailVM.Data?.Volume24h</MudText>
+<MudText>AssetDepth: @BindingContext.PoolDetailVM.Data?.AssetDepth</MudText>
+<MudText>RuneDepth: @BindingContext.PoolDetailVM.Data?.RuneDepth</MudText>
+<MudText>AssetPrice: @BindingContext.PoolDetailVM.Data?.AssetPrice</MudText>
+<MudText>AssetPriceUSD: @BindingContext.PoolDetailVM.Data?.AssetPriceUSD</MudText>
+<MudText>AnnualPercentageRate: @BindingContext.PoolDetailVM.Data?.AnnualPercentageRate</MudText>
+<MudText>PoolAPY: @BindingContext.PoolDetailVM.Data?.PoolAPY</MudText>
+<MudText>Status: @BindingContext.PoolDetailVM.Data?.Status</MudText>
+<MudText>LiquidityUnits: @BindingContext.PoolDetailVM.Data?.LiquidityUnits</MudText>
+<MudText>SynthUnits: @BindingContext.PoolDetailVM.Data?.SynthUnits</MudText>
+<MudText>SynthSupply: @BindingContext.PoolDetailVM.Data?.SynthSupply</MudText>
+<MudText>Units: @BindingContext.PoolDetailVM.Data?.Units</MudText>
+<MudText>NativeDecimal: @BindingContext.PoolDetailVM.Data?.NativeDecimal</MudText>
+<MudText>SaversUnits: @BindingContext.PoolDetailVM.Data?.SaversUnits</MudText>
+<MudText>SaversDepth: @BindingContext.PoolDetailVM.Data?.SaversDepth</MudText>
 
+@code {
+    protected override void OnInitialized()
+    {
+        WatchDataLoaderVM(BindingContext.PoolDetailVM);
+
+        base.OnInitialized();
+    }
+}

@@ -19,12 +19,12 @@ namespace JitSwap.Blazor.Pages
         {
             if (!string.IsNullOrEmpty(Asset))
             {
-                await BindingContext.LoadPoolStatsDetail(Asset, Midgard.Period2._30d);
-                await BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
+                BindingContext.LoadPoolStatsDetail(Asset, Midgard.Period2._30d);
+                BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
 
-                await BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
-                await BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);
-                await BindingContext.LoadPoolLiquidityHistory(Asset, Midgard.Interval3.Day, 30, null, null);
+                BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
+                BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);
+                BindingContext.LoadPoolLiquidityHistory(Asset, Midgard.Interval3.Day, 30, null, null);
             }
 
             await base.LoadDataAsync();

@@ -2,17 +2,19 @@
 @using Midgard;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolLiquidityHistoryDataLoader" />
-@if (BindingContext.PoolLiquidityHistoryDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolLiquidityHistoryVM.DataLoader" />
+@if (BindingContext.PoolLiquidityHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
+@if (BindingContext.PoolLiquidityHistoryVM.Data?.Intervals == null) return;
 
 
-<ApexChart TItem="LiquidityHistoryItem"
+<ApexChart @ref="chart"
+           TItem="LiquidityHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{BindingContext.SelectedAsset} Swap Totals")">
+           Title="@($"{BindingContext.SelectedAsset} Liquidity Count")">
 
     <ApexPointSeries TItem="LiquidityHistoryItem"
-                     Items="BindingContext.PoolLiquidityHistory!.Intervals"
+                     Items="BindingContext.PoolLiquidityHistoryVM.Data!.Intervals"
                      Name="add count"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -21,7 +23,7 @@
 
 
     <ApexPointSeries TItem="LiquidityHistoryItem"
-                     Items="BindingContext.PoolLiquidityHistory!.Intervals"
+                     Items="BindingContext.PoolLiquidityHistoryVM.Data!.Intervals"
                      Name="withdraw count"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -35,6 +37,7 @@
 
 @code {
 
+    private ApexChart<LiquidityHistoryItem>? chart;
     private ApexChartOptions<LiquidityHistoryItem> options = ChartConfig.GetDefaultChartOptions<LiquidityHistoryItem>();
 
     protected override void OnInitialized()
@@ -54,6 +57,16 @@
 
         options.Chart = new Chart { Group = "dateSync" };
 
+        WatchDataLoaderVM(BindingContext.PoolLiquidityHistoryVM);
+
         base.OnInitialized();
+    }
+
+    protected override async Task ChartRenderAsync()
+    {
+        if (chart != null && BindingContext.PoolLiquidityHistoryVM.Data?.Intervals != null)
+            await chart.RenderAsync();
+
+        await base.ChartRenderAsync();
     }
 }

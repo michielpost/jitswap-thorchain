@@ -1,47 +1,46 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Network Data</MudText>
-<DataLoaderProgress DataLoader="BindingContext.NetworkDataDataLoader" />
-@if (BindingContext.NetworkDataDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.NetworkDataVM.DataLoader" />
+@if (BindingContext.NetworkDataVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
 
 <MudText>Bond Metrics</MudText>
-<MudText>Total Active Bond: @BindingContext.NetworkData?.BondMetrics.TotalActiveBond</MudText>
-<MudText>Average Active Bond: @BindingContext.NetworkData?.BondMetrics.AverageActiveBond</MudText>
-<MudText>Median Active Bond: @BindingContext.NetworkData?.BondMetrics.MedianActiveBond</MudText>
-<MudText>Minimum Active Bond: @BindingContext.NetworkData?.BondMetrics.MinimumActiveBond</MudText>
-<MudText>Maximum Active Bond: @BindingContext.NetworkData?.BondMetrics.MaximumActiveBond</MudText>
+<MudText>Total Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.TotalActiveBond</MudText>
+<MudText>Average Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.AverageActiveBond</MudText>
+<MudText>Median Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MedianActiveBond</MudText>
+<MudText>Minimum Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MinimumActiveBond</MudText>
+<MudText>Maximum Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MaximumActiveBond</MudText>
 
 <br />
-<MudText>Total Standby Bond: @BindingContext.NetworkData?.BondMetrics.TotalStandbyBond</MudText>
-<MudText>Average Standby Bond: @BindingContext.NetworkData?.BondMetrics.AverageStandbyBond</MudText>
-<MudText>Median Standby Bond: @BindingContext.NetworkData?.BondMetrics.MedianStandbyBond</MudText>
-<MudText>Minimum Standby Bond: @BindingContext.NetworkData?.BondMetrics.MinimumStandbyBond</MudText>
-<MudText>Maximum Standby Bond: @BindingContext.NetworkData?.BondMetrics.MaximumStandbyBond</MudText>
+<MudText>Total Standby Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.TotalStandbyBond</MudText>
+<MudText>Average Standby Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.AverageStandbyBond</MudText>
+<MudText>Median Standby Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MedianStandbyBond</MudText>
+<MudText>Minimum Standby Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MinimumStandbyBond</MudText>
+<MudText>Maximum Standby Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MaximumStandbyBond</MudText>
 
 <br />
 <MudText>Block Rewards</MudText>
-<MudText>Block Reward: @BindingContext.NetworkData?.BlockRewards.BlockReward</MudText>
-<MudText>Bond Reward: @BindingContext.NetworkData?.BlockRewards.BondReward</MudText>
-<MudText>Pool Reward: @BindingContext.NetworkData?.BlockRewards.PoolReward</MudText>
+<MudText>Block Reward: @BindingContext.NetworkDataVM.Data?.BlockRewards.BlockReward</MudText>
+<MudText>Bond Reward: @BindingContext.NetworkDataVM.Data?.BlockRewards.BondReward</MudText>
+<MudText>Pool Reward: @BindingContext.NetworkDataVM.Data?.BlockRewards.PoolReward</MudText>
 
 <br />
-<MudText>Active Node Count: @BindingContext.NetworkData?.ActiveNodeCount</MudText>
-<MudText>Standby Node Count: @BindingContext.NetworkData?.StandbyNodeCount</MudText>
-<MudText>Total Pooled Rune: @BindingContext.NetworkData?.TotalPooledRune</MudText>
-<MudText>Total Reserve: @BindingContext.NetworkData?.TotalReserve</MudText>
-<MudText>Next Churn Height: @BindingContext.NetworkData?.NextChurnHeight</MudText>
-<MudText>Pool Activation Countdown: @BindingContext.NetworkData?.PoolActivationCountdown</MudText>
-<MudText>Pool Share Factor: @BindingContext.NetworkData?.PoolShareFactor</MudText>
-<MudText>Bonding APY: @BindingContext.NetworkData?.BondingAPY</MudText>
-<MudText>Liquidity APY: @BindingContext.NetworkData?.LiquidityAPY</MudText>
-
+<MudText>Active Node Count: @BindingContext.NetworkDataVM.Data?.ActiveNodeCount</MudText>
+<MudText>Standby Node Count: @BindingContext.NetworkDataVM.Data?.StandbyNodeCount</MudText>
+<MudText>Total Pooled Rune: @BindingContext.NetworkDataVM.Data?.TotalPooledRune</MudText>
+<MudText>Total Reserve: @BindingContext.NetworkDataVM.Data?.TotalReserve</MudText>
+<MudText>Next Churn Height: @BindingContext.NetworkDataVM.Data?.NextChurnHeight</MudText>
+<MudText>Pool Activation Countdown: @BindingContext.NetworkDataVM.Data?.PoolActivationCountdown</MudText>
+<MudText>Pool Share Factor: @BindingContext.NetworkDataVM.Data?.PoolShareFactor</MudText>
+<MudText>Bonding APY: @BindingContext.NetworkDataVM.Data?.BondingAPY</MudText>
+<MudText>Liquidity APY: @BindingContext.NetworkDataVM.Data?.LiquidityAPY</MudText>
 
 @code {
-   
-    protected override async Task LoadDataAsync()
+    protected override void OnInitialized()
     {
-        await BindingContext.LoadNetworkData();
-    }
+        WatchDataLoaderVM(BindingContext.NetworkDataVM);
 
+        base.OnInitialized();
+    }
 }

@@ -9,6 +9,13 @@ namespace JitSwap.Blazor.Pages
             base.OnInitialized();
         }
 
-        
+        protected override async Task LoadDataAsync()
+        {
+            BindingContext.LoadHealth();
+            BindingContext.LoadNetworkData();
+            BindingContext.LoadStats();
+            BindingContext.LoadChurnList();
+        }
+
     }
 }

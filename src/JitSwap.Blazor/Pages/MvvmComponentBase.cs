@@ -1,5 +1,8 @@
 ﻿using JitSwap.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
+using System.Diagnostics;
+using webvNext.DataLoader;
 
 namespace JitSwap.Blazor.Pages
 {
@@ -8,29 +11,34 @@ namespace JitSwap.Blazor.Pages
         [Inject]
         public T BindingContext { get; set; } = default!;
 
-        protected override void OnInitialized()
+        public List<INotifyPropertyChanged> ObjWatch { get; set; } = new();
+
+        protected  override void OnInitialized()
         {
             BindingContext.PropertyChanged += BindingContext_PropertyChanged;
+
+            foreach(var obj in ObjWatch)
+            {
+                obj.PropertyChanged += ObjWatch_PropertyChanged;
+            }
 
             base.OnInitialized();
         }
 
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    await LoadDataAsync();
-        //    await base.OnInitializedAsync();
-        //}
-
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnInitializedAsync()
         {
             await LoadDataAsync();
-            await base.OnParametersSetAsync();
+            await base.OnInitializedAsync();
         }
+
+        //protected override async Task OnParametersSetAsync()
+        //{
+        //    await LoadDataAsync();
+        //    await base.OnParametersSetAsync();
+        //}
 
         internal async void BindingContext_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            this.StateHasChanged();
-
             if (e.PropertyName == nameof(MainViewModel.MidgardUrl))
             {
                 await LoadDataAsync();
@@ -38,14 +46,36 @@ namespace JitSwap.Blazor.Pages
             }
         }
 
+        internal async void ObjWatch_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            this.StateHasChanged();
+            await ChartRenderAsync();
+        }
+
+        protected virtual Task ChartRenderAsync()
+        {
+            return Task.CompletedTask;
+        }
+
         protected virtual Task LoadDataAsync()
         {
             return Task.CompletedTask;
         }
 
-        public void Dispose()
+        protected void WatchDataLoaderVM<D>(DataLoaderViewModel<D> vm) where D : class
+        {
+            ObjWatch.Add(vm);
+            ObjWatch.Add(vm.DataLoader);
+        }
+
+        public virtual void Dispose()
         {
             BindingContext.PropertyChanged -= BindingContext_PropertyChanged;
+
+            foreach (var obj in ObjWatch)
+            {
+                obj.PropertyChanged -= ObjWatch_PropertyChanged;
+            }
         }
     }
 }

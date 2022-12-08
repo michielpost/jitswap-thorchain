@@ -2,17 +2,19 @@
 @using Midgard;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryDataLoader" />
-@if (BindingContext.PoolSwapHistoryDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryVM.DataLoader" />
+@if (BindingContext.PoolSwapHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
+@if (BindingContext.PoolSwapHistoryVM.Data?.Intervals == null) return;
 
 
-<ApexChart TItem="SwapHistoryItem"
+<ApexChart @ref="chart"
+           TItem="SwapHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
            Title="@($"{BindingContext.SelectedAsset} Swap Fees")">
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory!.Intervals"
+                     Items="BindingContext.PoolSwapHistoryVM.Data!.Intervals"
                      Name="@($"to {BindingContext.SelectedAsset}")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -20,7 +22,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory!.Intervals"
+                     Items="BindingContext.PoolSwapHistoryVM.Data!.Intervals"
                      Name="to RUNE"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -28,7 +30,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory!.Intervals"
+                     Items="BindingContext.PoolSwapHistoryVM.Data!.Intervals"
                      Name="SynthMintVolume"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -36,7 +38,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="SwapHistoryItem"
-                     Items="BindingContext.PoolSwapHistory!.Intervals"
+                     Items="BindingContext.PoolSwapHistoryVM.Data!.Intervals"
                      Name="SynthRedeemVolume"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -51,6 +53,7 @@
 
 @code {
 
+    private ApexChart<SwapHistoryItem>? chart;
     private ApexChartOptions<SwapHistoryItem> options = ChartConfig.GetDefaultChartOptions<SwapHistoryItem>();
 
     protected override void OnInitialized()
@@ -66,8 +69,18 @@
             }
         );
         options.Chart = new Chart { Group = "dateSync" };
+        
+        WatchDataLoaderVM(BindingContext.PoolSwapHistoryVM);
 
         base.OnInitialized();
+    }
+
+    protected override async Task ChartRenderAsync()
+    {
+        if (chart != null && BindingContext.PoolSwapHistoryVM.Data?.Intervals != null)
+            await chart.RenderAsync();
+
+        await base.ChartRenderAsync();
     }
 
 }

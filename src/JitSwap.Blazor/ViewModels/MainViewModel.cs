@@ -20,96 +20,36 @@ namespace JitSwap.Blazor.ViewModels
         private string? midgardUrl;
 
         [ObservableProperty]
-        [NotifyPropertyChangedRecipients]
         private string? selectedAsset;
 
-        //[ObservableProperty]
-        //[NotifyPropertyChangedRecipients]
-        //private string? currentAsset;
+        public DataLoaderViewModel<Dictionary<string, string>> KnownPoolsListVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader knownPoolsListDataLoader = new();
+        public DataLoaderViewModel<List<PoolDetail>> PoolsListVM { get; set; } = new();
 
-        [ObservableProperty]
-        private Dictionary<string, string>? knownPoolsList;
+        public DataLoaderViewModel<Health> HealthVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader poolsListDataLoader = new();
+        public DataLoaderViewModel<Network> NetworkDataVM { get; set; } = new();
 
-        [ObservableProperty]
-        private List<PoolDetail>? poolsList;
+        public DataLoaderViewModel<StatsData> StatsDataVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader healthDataLoader = new();
+        public DataLoaderViewModel<List<ChurnItem>> ChurnListVM { get; set; } = new();
 
-        [ObservableProperty]
-        private Health? health;
+        public DataLoaderViewModel<List<Node>> NodesListVM { get; set; } = new();
 
-        [ObservableProperty]    
-        private DataLoader networkDataDataLoader = new();
+        public DataLoaderViewModel<PoolDetail> PoolDetailVM { get; set; } = new();
 
-        [ObservableProperty]
-        private Network? networkData;
+        public DataLoaderViewModel<PoolStatsDetail> PoolStatsDetailVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader statsDataDataLoader = new();
+        public DataLoaderViewModel<DepthHistory> PoolDepthHistoryVM { get; set; } = new();
 
-        [ObservableProperty]
-        private StatsData? statsData;
+        public DataLoaderViewModel<EarningsHistory> EarningsHistoryVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader churnListDataLoader = new();
+        public DataLoaderViewModel<SwapHistory> PoolSwapHistoryVM { get; set; } = new();
 
-        [ObservableProperty]
-        private List<ChurnItem>? churnList;
+        public DataLoaderViewModel<TVLHistory> TotalValueLockedHistoryVM { get; set; } = new();
 
-        [ObservableProperty]
-        private DataLoader nodesListDataLoader = new();
+        public DataLoaderViewModel<LiquidityHistory> PoolLiquidityHistoryVM { get; set; } = new();
 
-        [ObservableProperty]
-        private List<Node>? nodesList;
-
-        [ObservableProperty]
-        private DataLoader poolDetailDataLoader = new();
-
-        [ObservableProperty]
-        private PoolDetail? poolDetail;
-
-        [ObservableProperty]
-        private DataLoader poolStatsDetailDataLoader = new();
-
-        [ObservableProperty]
-        private PoolStatsDetail? poolStatsDetail;
-
-        [ObservableProperty]
-        private DataLoader poolDepthHistoryDataLoader = new();
-
-        [ObservableProperty]
-        private DepthHistory? poolDepthHistory;
-
-        [ObservableProperty]
-        private DataLoader earningsHistoryDataLoader = new();
-
-        [ObservableProperty]
-        private EarningsHistory? earningsHistory;
-
-        [ObservableProperty]
-        private DataLoader poolSwapHistoryDataLoader = new();
-
-        [ObservableProperty]
-        private SwapHistory? poolSwapHistory;
-
-        [ObservableProperty]
-        private DataLoader totalValueLockedHistoryDataLoader = new();
-
-        [ObservableProperty]
-        private TVLHistory? totalValueLockedHistory;
-
-        [ObservableProperty]
-        private DataLoader poolLiquidityHistoryDataLoader = new();
-
-        [ObservableProperty]
-        private LiquidityHistory? poolLiquidityHistory;
 
         //TODO:
         //Actions List (optional? address)
@@ -133,80 +73,95 @@ namespace JitSwap.Blazor.ViewModels
             this.memoryDataCache = memoryDataCache;
         }
 
-        public Task LoadHealth() => healthDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync(), x => Health = x);
-        public Task LoadChurnList() => churnListDataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetChurnsAsync()).ToList(), x => ChurnList = x);
-        public Task LoadNodesList() => nodesListDataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetNodesAsync()).ToList(), x => NodesList = x);
-        public Task LoadNetworkData() => networkDataDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetNetworkDataAsync(), x => NetworkData = x);
-        public Task LoadStats() => statsDataDataLoader.LoadAsync(() => dataService.MidgardAPI!.GetStatsAsync(), x => StatsData = x);
+        public Task LoadHealth() => HealthVM.DataLoader.LoadAsync(() => dataService.MidgardAPI!.GetHealthAsync(), x => HealthVM.Data = x);
+        public Task LoadChurnList() => ChurnListVM.DataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetChurnsAsync()).ToList(), x => ChurnListVM.Data = x);
+        public Task LoadNodesList() => NodesListVM.DataLoader.LoadAsync(async () => (await dataService.MidgardAPI!.GetNodesAsync()).ToList(), x => NodesListVM.Data = x);
+        public Task LoadNetworkData() => NetworkDataVM.DataLoader.LoadAsync(() => dataService.MidgardAPI!.GetNetworkDataAsync(), x => NetworkDataVM.Data = x);
+        public Task LoadStats() => StatsDataVM.DataLoader.LoadAsync(() => dataService.MidgardAPI!.GetStatsAsync(), x => StatsDataVM.Data = x);
 
 
-        public Task LoadKnownPoolsList() => knownPoolsListDataLoader.LoadAsync(async () =>
+        public Task LoadKnownPoolsList() => KnownPoolsListVM.DataLoader.LoadAsync(async () =>
         {
             var result = await dataService.MidgardAPI!.GetKnownPoolsAsync();
             return result.ToDictionary(x => x.Key, x => x.Value);
-        }, x => KnownPoolsList = x);
-        public Task LoadPoolsList() => poolsListDataLoader.LoadAsync(async () =>
+        }, x => KnownPoolsListVM.Data = x);
+        public Task LoadPoolsList() => PoolsListVM.DataLoader.LoadAsync(async () =>
         {
             var result = await dataService.MidgardAPI!.GetPoolsAsync(Midgard.Status.Available, null);
             return result.ToList();
-        }, x => PoolsList = x);
+        }, x => PoolsListVM.Data = x);
 
-        public Task LoadPoolDetail(string asset, Period period) => poolDetailDataLoader.LoadAsync(() =>
+        public Task LoadPoolDetail(string asset, Period period) => PoolDetailVM.DataLoader.LoadAsync(() =>
         {
             return dataService.MidgardAPI!.GetPoolAsync(asset, period);
-        }, x => PoolDetail = x);
+        }, x => PoolDetailVM.Data = x);
 
-        public Task LoadPoolStatsDetail(string asset, Period2 period) => poolStatsDetailDataLoader.LoadAsync(() =>
+        public Task LoadPoolStatsDetail(string asset, Period2 period) => PoolStatsDetailVM.DataLoader.LoadAsync(() =>
         {
             return dataService.MidgardAPI!.GetPoolStatsAsync(asset, period);
-        }, x => PoolStatsDetail = x);
+        }, x => PoolStatsDetailVM.Data = x);
 
 
         public Task LoadPoolDepthHistory(string pool, Interval interval, int count, long? to, long? from)
-            => poolDepthHistoryDataLoader.LoadAsync(() =>
+            => PoolDepthHistoryVM.DataLoader.LoadAsync(() =>
             {
-                return memoryDataCache!.GetAsync($"{nameof(LoadPoolDepthHistory)}-{pool}-{interval}-{count}-{to}-{from}", () =>
-                {
+                //return memoryDataCache!.GetAsync($"{nameof(LoadPoolDepthHistory)}-{pool}-{interval}-{count}-{to}-{from}", () =>
+                //{
                     return dataService.MidgardAPI!.GetDepthHistoryAsync(pool, interval, count, to, from);
-                }, DateTimeOffset.UtcNow.AddMinutes(1));
-            }, x => PoolDepthHistory = x);
+                //}, DateTimeOffset.UtcNow.AddMinutes(1));
+            }, x => PoolDepthHistoryVM.Data = x);
 
         public Task LoadPoolSwapHistory(string? pool, Interval4 interval, int count, long? to, long? from)
-           => poolSwapHistoryDataLoader.LoadAsync(() =>
+           => PoolSwapHistoryVM.DataLoader.LoadAsync(() =>
            {
                return memoryDataCache!.GetAsync($"{nameof(LoadPoolSwapHistory)}-{pool}-{interval}-{count}-{to}-{from}", () =>
                {
                    return dataService.MidgardAPI!.GetSwapHistoryAsync(pool, interval, count, to, from);
                }, DateTimeOffset.UtcNow.AddMinutes(1));
-           }, x => PoolSwapHistory = x);
+           }, x => PoolSwapHistoryVM.Data = x);
 
 
-        //TODO: Chart
         public Task LoadPoolLiquidityHistory(string? pool, Interval3 interval, int count, long? to, long? from)
-          => poolLiquidityHistoryDataLoader.LoadAsync(() =>
+          => PoolLiquidityHistoryVM.DataLoader.LoadAsync(() =>
           {
               return dataService.MidgardAPI!.GetLiquidityHistoryAsync(pool, interval, count, to, from);
-          }, x => PoolLiquidityHistory = x);
+          }, x => PoolLiquidityHistoryVM.Data = x);
 
 
 
         //TODO: Chart
-        public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => earningsHistoryDataLoader.LoadAsync(() =>
+        public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => EarningsHistoryVM.DataLoader.LoadAsync(() =>
         {
             return dataService.MidgardAPI!.GetEarningsHistoryAsync(interval, count, to, from);
-        }, x => EarningsHistory = x);
+        }, x => EarningsHistoryVM.Data = x);
 
         //TODO: Chart
-        public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => totalValueLockedHistoryDataLoader.LoadAsync(() =>
+        public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => TotalValueLockedHistoryVM.DataLoader.LoadAsync(() =>
         {
             return dataService.MidgardAPI!.GetTVLHistoryAsync(interval, count, to, from);
-        }, x => TotalValueLockedHistory = x);
+        }, x => TotalValueLockedHistoryVM.Data = x);
 
 
 
         partial void OnMidgardUrlChanged(string? value)
         {
             memoryDataCache.Clear();
+
+            //Clear all data
+            KnownPoolsListVM.Data = null;
+            PoolsListVM.Data = null;
+            HealthVM.Data = null;
+            NetworkDataVM.Data = null;
+            StatsDataVM.Data = null;
+            ChurnListVM.Data = null;
+            NodesListVM.Data = null;
+            PoolDetailVM.Data = null;
+            PoolStatsDetailVM.Data = null;
+            PoolDepthHistoryVM.Data = null;
+            EarningsHistoryVM.Data = null;
+            PoolSwapHistoryVM.Data = null;
+            TotalValueLockedHistoryVM.Data = null;
+            PoolLiquidityHistoryVM.Data = null;
 
             if (!string.IsNullOrEmpty(value))
             {

@@ -2,45 +2,53 @@
 @inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Pool Stats</MudText>
-<DataLoaderProgress DataLoader="BindingContext.PoolStatsDetailDataLoader" />
-@if (BindingContext.PoolStatsDetailDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolStatsDetailVM.DataLoader" />
+@if (BindingContext.PoolStatsDetailVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Asset: @BindingContext.PoolStatsDetail?.Asset</MudText>
-<MudText>Status: @BindingContext.PoolStatsDetail?.Status</MudText>
-<MudText>AssetPrice: @BindingContext.PoolStatsDetail?.AssetPrice</MudText>
-<MudText>AssetPriceUSD: @BindingContext.PoolStatsDetail?.AssetPriceUSD</MudText>
-<MudText>AssetDepth: @BindingContext.PoolStatsDetail?.AssetDepth</MudText>
-<MudText>RuneDepth: @BindingContext.PoolStatsDetail?.RuneDepth</MudText>
-<MudText>SynthUnits: @BindingContext.PoolStatsDetail?.SynthUnits</MudText>
-<MudText>SynthSupply: @BindingContext.PoolStatsDetail?.SynthSupply</MudText>
-<MudText>LiquidityUnits: @BindingContext.PoolStatsDetail?.LiquidityUnits</MudText>
-<MudText>VolumUnitse24h: @BindingContext.PoolStatsDetail?.Units</MudText>
+<MudText>Asset: @BindingContext.PoolStatsDetailVM.Data?.Asset</MudText>
+<MudText>Status: @BindingContext.PoolStatsDetailVM.Data?.Status</MudText>
+<MudText>AssetPrice: @BindingContext.PoolStatsDetailVM.Data?.AssetPrice</MudText>
+<MudText>AssetPriceUSD: @BindingContext.PoolStatsDetailVM.Data?.AssetPriceUSD</MudText>
+<MudText>AssetDepth: @BindingContext.PoolStatsDetailVM.Data?.AssetDepth</MudText>
+<MudText>RuneDepth: @BindingContext.PoolStatsDetailVM.Data?.RuneDepth</MudText>
+<MudText>SynthUnits: @BindingContext.PoolStatsDetailVM.Data?.SynthUnits</MudText>
+<MudText>SynthSupply: @BindingContext.PoolStatsDetailVM.Data?.SynthSupply</MudText>
+<MudText>LiquidityUnits: @BindingContext.PoolStatsDetailVM.Data?.LiquidityUnits</MudText>
+<MudText>VolumUnitse24h: @BindingContext.PoolStatsDetailVM.Data?.Units</MudText>
 
-<MudText>ToAssetVolume: @BindingContext.PoolStatsDetail?.ToAssetVolume</MudText>
-<MudText>ToRuneVolume: @BindingContext.PoolStatsDetail?.ToRuneVolume</MudText>
-<MudText>SwapVolume: @BindingContext.PoolStatsDetail?.SwapVolume</MudText>
-<MudText>ToAssetCount: @BindingContext.PoolStatsDetail?.ToAssetCount</MudText>
-<MudText>ToRuneCount: @BindingContext.PoolStatsDetail?.ToRuneCount</MudText>
-<MudText>SwapCount: @BindingContext.PoolStatsDetail?.SwapCount</MudText>
-<MudText>UniqueSwapperCount: @BindingContext.PoolStatsDetail?.UniqueSwapperCount</MudText>
-<MudText>ToAssetAverageSlip: @BindingContext.PoolStatsDetail?.ToAssetAverageSlip</MudText>
-<MudText>ToRuneAverageSlip: @BindingContext.PoolStatsDetail?.ToRuneAverageSlip</MudText>
-<MudText>AverageSlip: @BindingContext.PoolStatsDetail?.AverageSlip</MudText>
-<MudText>ToAssetFees: @BindingContext.PoolStatsDetail?.ToAssetFees</MudText>
-<MudText>ToRuneFees: @BindingContext.PoolStatsDetail?.ToRuneFees</MudText>
-<MudText>TotalFees: @BindingContext.PoolStatsDetail?.TotalFees</MudText>
+<MudText>ToAssetVolume: @BindingContext.PoolStatsDetailVM.Data?.ToAssetVolume</MudText>
+<MudText>ToRuneVolume: @BindingContext.PoolStatsDetailVM.Data?.ToRuneVolume</MudText>
+<MudText>SwapVolume: @BindingContext.PoolStatsDetailVM.Data?.SwapVolume</MudText>
+<MudText>ToAssetCount: @BindingContext.PoolStatsDetailVM.Data?.ToAssetCount</MudText>
+<MudText>ToRuneCount: @BindingContext.PoolStatsDetailVM.Data?.ToRuneCount</MudText>
+<MudText>SwapCount: @BindingContext.PoolStatsDetailVM.Data?.SwapCount</MudText>
+<MudText>UniqueSwapperCount: @BindingContext.PoolStatsDetailVM.Data?.UniqueSwapperCount</MudText>
+<MudText>ToAssetAverageSlip: @BindingContext.PoolStatsDetailVM.Data?.ToAssetAverageSlip</MudText>
+<MudText>ToRuneAverageSlip: @BindingContext.PoolStatsDetailVM.Data?.ToRuneAverageSlip</MudText>
+<MudText>AverageSlip: @BindingContext.PoolStatsDetailVM.Data?.AverageSlip</MudText>
+<MudText>ToAssetFees: @BindingContext.PoolStatsDetailVM.Data?.ToAssetFees</MudText>
+<MudText>ToRuneFees: @BindingContext.PoolStatsDetailVM.Data?.ToRuneFees</MudText>
+<MudText>TotalFees: @BindingContext.PoolStatsDetailVM.Data?.TotalFees</MudText>
 
-<MudText>AnnualPercentageRate: @BindingContext.PoolStatsDetail?.AnnualPercentageRate</MudText>
-<MudText>PoolAPY: @BindingContext.PoolStatsDetail?.PoolAPY</MudText>
+<MudText>AnnualPercentageRate: @BindingContext.PoolStatsDetailVM.Data?.AnnualPercentageRate</MudText>
+<MudText>PoolAPY: @BindingContext.PoolStatsDetailVM.Data?.PoolAPY</MudText>
 
-<MudText>AddAssetLiquidityVolume: @BindingContext.PoolStatsDetail?.AddAssetLiquidityVolume</MudText>
-<MudText>AddRuneLiquidityVolume: @BindingContext.PoolStatsDetail?.AddRuneLiquidityVolume</MudText>
-<MudText>AddLiquidityVolume: @BindingContext.PoolStatsDetail?.AddLiquidityVolume</MudText>
-<MudText>AddLiquidityCount: @BindingContext.PoolStatsDetail?.AddLiquidityCount</MudText>
-<MudText>WithdrawAssetVolume: @BindingContext.PoolStatsDetail?.WithdrawAssetVolume</MudText>
-<MudText>WithdrawRuneVolume: @BindingContext.PoolStatsDetail?.WithdrawRuneVolume</MudText>
-<MudText>ImpermanentLossProtectionPaid: @BindingContext.PoolStatsDetail?.ImpermanentLossProtectionPaid</MudText>
-<MudText>WithdrawVolume: @BindingContext.PoolStatsDetail?.WithdrawVolume</MudText>
-<MudText>WithdrawCount: @BindingContext.PoolStatsDetail?.WithdrawCount</MudText>
-<MudText>UniqueMemberCount: @BindingContext.PoolStatsDetail?.UniqueMemberCount</MudText>
+<MudText>AddAssetLiquidityVolume: @BindingContext.PoolStatsDetailVM.Data?.AddAssetLiquidityVolume</MudText>
+<MudText>AddRuneLiquidityVolume: @BindingContext.PoolStatsDetailVM.Data?.AddRuneLiquidityVolume</MudText>
+<MudText>AddLiquidityVolume: @BindingContext.PoolStatsDetailVM.Data?.AddLiquidityVolume</MudText>
+<MudText>AddLiquidityCount: @BindingContext.PoolStatsDetailVM.Data?.AddLiquidityCount</MudText>
+<MudText>WithdrawAssetVolume: @BindingContext.PoolStatsDetailVM.Data?.WithdrawAssetVolume</MudText>
+<MudText>WithdrawRuneVolume: @BindingContext.PoolStatsDetailVM.Data?.WithdrawRuneVolume</MudText>
+<MudText>ImpermanentLossProtectionPaid: @BindingContext.PoolStatsDetailVM.Data?.ImpermanentLossProtectionPaid</MudText>
+<MudText>WithdrawVolume: @BindingContext.PoolStatsDetailVM.Data?.WithdrawVolume</MudText>
+<MudText>WithdrawCount: @BindingContext.PoolStatsDetailVM.Data?.WithdrawCount</MudText>
+<MudText>UniqueMemberCount: @BindingContext.PoolStatsDetailVM.Data?.UniqueMemberCount</MudText>
 
+@code {
+    protected override void OnInitialized()
+    {
+        WatchDataLoaderVM(BindingContext.PoolStatsDetailVM);
+
+        base.OnInitialized();
+    }
+}

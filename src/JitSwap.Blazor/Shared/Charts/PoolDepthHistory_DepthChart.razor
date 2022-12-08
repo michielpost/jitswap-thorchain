@@ -2,8 +2,9 @@
 @using Midgard;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistoryDataLoader" />
-@if (BindingContext.PoolDepthHistoryDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistoryVM.DataLoader" />
+@if (BindingContext.PoolDepthHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
+@if (BindingContext.PoolDepthHistoryVM.Data?.Intervals == null) return;
 
 
 <ApexChart @ref="chart"
@@ -13,7 +14,7 @@
            Title="@($"{BindingContext.SelectedAsset} Liquidity History")">
 
     <ApexPointSeries TItem="DepthHistoryItem"
-                     Items="BindingContext.PoolDepthHistory!.Intervals"
+                     Items="BindingContext.PoolDepthHistoryVM.Data.Intervals"
                      Name="USD"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -21,7 +22,7 @@
                      OrderBy="e=>e.X" />
 
     <ApexPointSeries TItem="DepthHistoryItem"
-                     Items="BindingContext.PoolDepthHistory!.Intervals"
+                     Items="BindingContext.PoolDepthHistoryVM.Data.Intervals"
                      Name="@BindingContext.SelectedAsset"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
@@ -92,7 +93,19 @@
             });
         options.Chart = new Chart { Group = "dateSync" };
 
+        WatchDataLoaderVM(BindingContext.PoolDepthHistoryVM);
+
         base.OnInitialized();
     }
+
+
+    protected override async Task ChartRenderAsync()
+    {
+        if (chart != null && BindingContext.PoolDepthHistoryVM.Data?.Intervals != null)
+            await chart.RenderAsync();
+
+        await base.ChartRenderAsync();
+    }
+
 
 }

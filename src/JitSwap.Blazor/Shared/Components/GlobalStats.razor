@@ -1,53 +1,50 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
 <MudText Typo="Typo.h5">Global Stats</MudText>
-<DataLoaderProgress DataLoader="BindingContext.StatsDataDataLoader" />
-@if (BindingContext.StatsDataDataLoader.LoadingState != LoadingState.Finished) return;
+<DataLoaderProgress DataLoader="BindingContext.StatsDataVM.DataLoader" />
+@if (BindingContext.StatsDataVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
 
-<MudText>Rune Depth: @BindingContext.StatsData?.RuneDepth</MudText>
-<MudText>Switched Rune: @BindingContext.StatsData?.SwitchedRune</MudText>
-<MudText>Rune Price USD: @BindingContext.StatsData?.RunePriceUSD</MudText>
+<MudText>Rune Depth: @BindingContext.StatsDataVM.Data?.RuneDepth</MudText>
+<MudText>Switched Rune: @BindingContext.StatsDataVM.Data?.SwitchedRune</MudText>
+<MudText>Rune Price USD: @BindingContext.StatsDataVM.Data?.RunePriceUSD</MudText>
 
-<MudText>Swap Volume: @BindingContext.StatsData?.SwapVolume</MudText>
-<MudText>Swap Count 24h: @BindingContext.StatsData?.SwapCount24h</MudText>
-<MudText>Swap Count 30d: @BindingContext.StatsData?.SwapCount30d</MudText>
-<MudText>Swap Count: @BindingContext.StatsData?.SwapCount</MudText>
+<MudText>Swap Volume: @BindingContext.StatsDataVM.Data?.SwapVolume</MudText>
+<MudText>Swap Count 24h: @BindingContext.StatsDataVM.Data?.SwapCount24h</MudText>
+<MudText>Swap Count 30d: @BindingContext.StatsDataVM.Data?.SwapCount30d</MudText>
+<MudText>Swap Count: @BindingContext.StatsDataVM.Data?.SwapCount</MudText>
 
-<MudText>Unique Swapper Count: @BindingContext.StatsData?.UniqueSwapperCount</MudText>
-
-<br />
-<MudText>To Asset Count: @BindingContext.StatsData?.ToAssetCount</MudText>
-<MudText>To Rune Count: @BindingContext.StatsData?.ToRuneCount</MudText>
+<MudText>Unique Swapper Count: @BindingContext.StatsDataVM.Data?.UniqueSwapperCount</MudText>
 
 <br />
-<MudText>Synth Mint Count: @BindingContext.StatsData?.SynthMintCount</MudText>
-<MudText>Synth Burn Count: @BindingContext.StatsData?.SynthBurnCount</MudText>
+<MudText>To Asset Count: @BindingContext.StatsDataVM.Data?.ToAssetCount</MudText>
+<MudText>To Rune Count: @BindingContext.StatsDataVM.Data?.ToRuneCount</MudText>
 
 <br />
-<MudText>Daily Active Users: @BindingContext.StatsData?.DailyActiveUsers</MudText>
-<MudText>Monthly Active Users: @BindingContext.StatsData?.MonthlyActiveUsers</MudText>
+<MudText>Synth Mint Count: @BindingContext.StatsDataVM.Data?.SynthMintCount</MudText>
+<MudText>Synth Burn Count: @BindingContext.StatsDataVM.Data?.SynthBurnCount</MudText>
 
 <br />
-<MudText>Add Liquidity Count: @BindingContext.StatsData?.AddLiquidityCount</MudText>
-<MudText>Add Liquidity Volume: @BindingContext.StatsData?.AddLiquidityVolume</MudText>
+<MudText>Daily Active Users: @BindingContext.StatsDataVM.Data?.DailyActiveUsers</MudText>
+<MudText>Monthly Active Users: @BindingContext.StatsDataVM.Data?.MonthlyActiveUsers</MudText>
 
 <br />
-<MudText>Withdraw Volume: @BindingContext.StatsData?.WithdrawVolume</MudText>
-<MudText>Withdraw Count: @BindingContext.StatsData?.WithdrawCount</MudText>
+<MudText>Add Liquidity Count: @BindingContext.StatsDataVM.Data?.AddLiquidityCount</MudText>
+<MudText>Add Liquidity Volume: @BindingContext.StatsDataVM.Data?.AddLiquidityVolume</MudText>
 
 <br />
-<MudText>Impermanent Loss Protection Paid: @BindingContext.StatsData?.ImpermanentLossProtectionPaid</MudText>
+<MudText>Withdraw Volume: @BindingContext.StatsDataVM.Data?.WithdrawVolume</MudText>
+<MudText>Withdraw Count: @BindingContext.StatsDataVM.Data?.WithdrawCount</MudText>
 
-
-
+<br />
+<MudText>Impermanent Loss Protection Paid: @BindingContext.StatsDataVM.Data?.ImpermanentLossProtectionPaid</MudText>
 
 
 @code {
-   
-    protected override async Task LoadDataAsync()
+    protected override void OnInitialized()
     {
-        await BindingContext.LoadStats();
-    }
+        WatchDataLoaderVM(BindingContext.StatsDataVM);
 
+        base.OnInitialized();
+    }
 }
