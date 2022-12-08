@@ -1,0 +1,59 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@using ApexCharts;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.TotalValueLockedHistoryVM.DataLoader" />
+@if (BindingContext.TotalValueLockedHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
+@if (BindingContext.TotalValueLockedHistoryVM.Data?.Intervals == null) return;
+
+
+<ApexChart @ref="chart"
+           TItem="TVLHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="Total Value Pooled">
+
+    <ApexPointSeries TItem="TVLHistoryItem"
+                     Items="BindingContext.TotalValueLockedHistoryVM.Data!.Intervals"
+                     Name="Earnings"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalValuePooled) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+</ApexChart>
+
+
+@code {
+
+    private ApexChart<TVLHistoryItem>? chart;
+    private ApexChartOptions<TVLHistoryItem> options = ChartConfig.GetDefaultChartOptions<TVLHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+        options.Chart = new Chart { Group = "dateSync" };
+
+        WatchDataLoaderVM(BindingContext.TotalValueLockedHistoryVM);
+
+        base.OnInitialized();
+    }
+
+    protected override async Task ChartRenderAsync()
+    {
+        if (chart != null && BindingContext.TotalValueLockedHistoryVM.Data?.Intervals != null)
+            await chart.RenderAsync();
+
+        await base.ChartRenderAsync();
+    }
+}

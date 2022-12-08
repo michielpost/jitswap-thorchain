@@ -1,0 +1,59 @@
+﻿@using CommunityToolkit.Mvvm.ComponentModel;
+@using Midgard;
+@using ApexCharts;
+@inherits MvvmComponentBase<MainViewModel>
+
+<DataLoaderProgress DataLoader="BindingContext.EarningsHistoryVM.DataLoader" />
+@if (BindingContext.EarningsHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
+@if (BindingContext.EarningsHistoryVM.Data?.Intervals == null) return;
+
+
+<ApexChart @ref="chart"
+           TItem="EarningsHistoryItem"
+           XAxisType="XAxisType.Datetime"
+           Options="options"
+           Title="Earnings">
+
+    <ApexPointSeries TItem="EarningsHistoryItem"
+                     Items="BindingContext.EarningsHistoryVM.Data!.Intervals"
+                     Name="Earnings"
+                     SeriesType="SeriesType.Line"
+                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.Earnings) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     OrderBy="e=>e.X" />
+
+</ApexChart>
+
+
+@code {
+
+    private ApexChart<EarningsHistoryItem>? chart;
+    private ApexChartOptions<EarningsHistoryItem> options = ChartConfig.GetDefaultChartOptions<EarningsHistoryItem>();
+
+    protected override void OnInitialized()
+    {
+        options.Yaxis = new List<YAxis>();
+        options.Yaxis.Add(new YAxis
+            {
+                Labels = new YAxisLabels
+                {
+                    Formatter = @"function (value) {
+                    return '$' + Number(value).toLocaleString();}"
+                }
+            }
+        );
+        options.Chart = new Chart { Group = "dateSync" };
+
+        WatchDataLoaderVM(BindingContext.EarningsHistoryVM);
+
+        base.OnInitialized();
+    }
+
+    protected override async Task ChartRenderAsync()
+    {
+        if (chart != null && BindingContext.EarningsHistoryVM.Data?.Intervals != null)
+            await chart.RenderAsync();
+
+        await base.ChartRenderAsync();
+    }
+}

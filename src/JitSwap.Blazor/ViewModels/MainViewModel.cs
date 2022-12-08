@@ -158,18 +158,20 @@ namespace JitSwap.Blazor.ViewModels
               }, TimeSpan.FromMinutes(1));
           }, x => PoolLiquidityHistoryVM.Data = x);
 
-
-
-        //TODO: Chart
         public Task LoadEarningshHistory(Interval2 interval, int count, long? to, long? from) => EarningsHistoryVM.DataLoader.LoadAsync(() =>
         {
-            return dataService.MidgardAPI!.GetEarningsHistoryAsync(interval, count, to, from);
+            return memoryDataCache!.GetAsync($"{nameof(LoadEarningshHistory)}-{interval}-{count}-{to}-{from}", () =>
+            {
+                return dataService.MidgardAPI!.GetEarningsHistoryAsync(interval, count, to, from);
+            }, TimeSpan.FromMinutes(1));
         }, x => EarningsHistoryVM.Data = x);
 
-        //TODO: Chart
         public Task LoadTotalValueLockedHistory(Interval5 interval, int count, long? to, long? from) => TotalValueLockedHistoryVM.DataLoader.LoadAsync(() =>
         {
-            return dataService.MidgardAPI!.GetTVLHistoryAsync(interval, count, to, from);
+            return memoryDataCache!.GetAsync($"{nameof(LoadTotalValueLockedHistory)}-{interval}-{count}-{to}-{from}", () =>
+            {
+                return dataService.MidgardAPI!.GetTVLHistoryAsync(interval, count, to, from);
+            }, TimeSpan.FromMinutes(1));
         }, x => TotalValueLockedHistoryVM.Data = x);
 
 
