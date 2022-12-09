@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.EarningsHistoryVM.DataLoader" Title="Total Earnings" />
+<DataLoaderProgress DataLoader="BindingContext.EarningsHistoryVM.DataLoader" Title="Earnings per asset" />
 @if (BindingContext.EarningsHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.EarningsHistoryVM.Data?.Intervals == null) return;
 
@@ -12,15 +12,19 @@
            TItem="EarningsHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="Earnings">
+           Title="Earnings per asset">
 
-    <ApexPointSeries TItem="EarningsHistoryItem"
+           @foreach(var pool in Pools)
+    {
+        <ApexPointSeries TItem="EarningsHistoryItem"
                      Items="BindingContext.EarningsHistoryVM.Data!.Intervals"
-                     Name="Total Earnings"
+                     Name="@pool"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
-                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.Earnings) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.Pools.Where(x => x.Pool == pool).First().Earnings) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
                      OrderBy="e=>e.X" />
+    }
+
 
 </ApexChart>
 
@@ -29,6 +33,7 @@
 
     private ApexChart<EarningsHistoryItem>? chart;
     private ApexChartOptions<EarningsHistoryItem> options = ChartConfig.GetDefaultChartOptions<EarningsHistoryItem>();
+    private List<string> Pools => BindingContext.EarningsHistoryVM.Data!.Intervals.First().Pools.Select(x => x.Pool).ToList();
 
     protected override void OnInitialized()
     {

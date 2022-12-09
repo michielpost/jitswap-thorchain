@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryVM.DataLoader" />
+<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryVM.DataLoader" Title="@($"{BindingContext.SelectedAsset} Swap Totals")" />
 @if (BindingContext.PoolSwapHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.PoolSwapHistoryVM.Data?.Intervals == null) return;
 

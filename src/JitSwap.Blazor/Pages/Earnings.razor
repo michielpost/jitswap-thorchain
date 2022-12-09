@@ -1,4 +1,4 @@
-﻿@page "/network"
+﻿@page "/earnings"
 @using JitSwap.Blazor.ViewModels;
 @inherits MvvmComponentBase<MainViewModel>
 
@@ -10,12 +10,22 @@
     <MudGrid>
         <MudItem xs="12" sm="6">
             <MudPaper Elevation="2" Class="pa-4">
-                <TotalValueLockedHistory_TotalChart />
+                <EarningsHistory_TotalChart />
             </MudPaper>
         </MudItem>
         <MudItem xs="12" sm="6">
             <MudPaper Elevation="2" Class="pa-4">
-                <ChurnsList />
+                <TotalValueLockedHistory_TotalChart />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudPaper Elevation="2" Class="pa-4">
+                <EarningsHistory_PoolDonutChart />
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudPaper Elevation="2" Class="pa-4">
+                <EarningsHistory_PoolChart />
             </MudPaper>
         </MudItem>
     </MudGrid>

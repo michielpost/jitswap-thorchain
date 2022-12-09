@@ -4,39 +4,16 @@
 
 <PageTitle>JITswap on THORChain</PageTitle>
 
+
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudText Typo="Typo.h3">Dashboard</MudText>
+
     <MudGrid>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-               <HealthInfo />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-                <ChurnsList />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="12" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-                <NetworkData />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Elevation="2" Class="pa-4">
-                <GlobalStats />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 100%"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="12" md="4">
-            <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;"></MudPaper>
+        <HealthInfo />
+        <GlobalStats />
+
+        <MudItem xs="12" sm="12" md="3">
+            <NetworkData />
         </MudItem>
     </MudGrid>
 </MudContainer>

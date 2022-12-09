@@ -14,7 +14,6 @@ namespace JitSwap.Blazor.Pages
             BindingContext.LoadHealth();
             BindingContext.LoadNetworkData();
             BindingContext.LoadStats();
-            BindingContext.LoadChurnList();
         }
 
     }

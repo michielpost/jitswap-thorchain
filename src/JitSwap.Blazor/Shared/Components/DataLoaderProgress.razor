@@ -3,7 +3,7 @@
     || DataLoader.LoadingState == LoadingState.Finished)
     return;
 
-<MudText Typo="Typo.overline">@DataLoader.LoadingState.ToString()</MudText>
+<MudText Typo="Typo.overline">@DataLoader.LoadingState.ToString() @Title</MudText>
 
 @code {
     [Parameter]

@@ -2,9 +2,7 @@
 @using Microsoft.AspNetCore.Components.QuickGrid;
 @inherits MvvmComponentBase<MainViewModel>
 
-<MudText>Assets</MudText>
-
-<DataLoaderProgress DataLoader="BindingContext.PoolsListVM.DataLoader" />
+<DataLoaderProgress DataLoader="BindingContext.PoolsListVM.DataLoader" Title="Asset List" />
 
 @if (BindingContext.PoolsListVM.Data?.Any() ?? false && FilteredItems != null)
 {

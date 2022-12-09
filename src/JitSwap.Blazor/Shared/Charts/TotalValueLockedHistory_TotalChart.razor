@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.TotalValueLockedHistoryVM.DataLoader" />
+<DataLoaderProgress DataLoader="BindingContext.TotalValueLockedHistoryVM.DataLoader" Title="Total Value Pooled" />
 @if (BindingContext.TotalValueLockedHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.TotalValueLockedHistoryVM.Data?.Intervals == null) return;
 

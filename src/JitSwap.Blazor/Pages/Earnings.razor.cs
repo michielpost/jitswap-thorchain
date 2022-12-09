@@ -3,12 +3,11 @@ using static MudBlazor.CategoryTypes;
 
 namespace JitSwap.Blazor.Pages
 {
-    public partial class Network : MvvmComponentBase<MainViewModel>
+    public partial class Earnings : MvvmComponentBase<MainViewModel>
     {
         protected override Task LoadDataAsync()
         {
-            BindingContext.LoadTotalValueLockedHistory(Midgard.Interval5.Day, 60, null, null);
-            BindingContext.LoadChurnList();
+            BindingContext.LoadEarningshHistory(Midgard.Interval2.Day, 31, null, null);
 
             return base.LoadDataAsync();
         }

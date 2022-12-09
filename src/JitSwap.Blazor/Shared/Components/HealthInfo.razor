@@ -1,34 +1,69 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
-<MudText Typo="Typo.h5">API Health</MudText>
-<DataLoaderProgress DataLoader="BindingContext.HealthVM.DataLoader" />
+<DataLoaderProgress DataLoader="BindingContext.HealthVM.DataLoader" Title="Health Data" />
 @if (BindingContext.HealthVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Database: @BindingContext.HealthVM.Data?.Database</MudText>
-<MudText>Scanner height: @BindingContext.HealthVM.Data?.ScannerHeight</MudText>
-<MudText>InSync: @BindingContext.HealthVM.Data?.InSync</MudText>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Storage" Title="Scanner Height" Size="Size.Large" />
+                <MudStack Justify="Justify.Center" Spacing="0">
+                    <MudText Typo="Typo.body1">Scanner Height</MudText>
+                    <MudText Typo="Typo.body2">@BindingContext.HealthVM.Data?.ScannerHeight (@(BindingContext.HealthVM.Data?.InSync == true ? "in-sync" : "out of sync"))</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+                <MudIcon Icon="@Icons.Material.Filled.Api" Title="Thor Node Block Heigh" Size="Size.Large" />
+                <MudStack Justify="Justify.Center" Spacing="0">
+                    <MudText Typo="Typo.body1">Thor Node Block Height</MudText>
+                    <MudText Typo="Typo.body2">@BindingContext.HealthVM.Data?.LastThorNode.Height</MudText>
+                    <MudText Typo="Typo.body2">@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastThorNode.Timestamp))</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+                <MudIcon Icon="@Icons.Material.Filled.CallReceived" Title="Last Fetched" Size="Size.Large" />
+                <MudStack Justify="Justify.Center" Spacing="0">
+                    <MudText Typo="Typo.body1">Last Fetched</MudText>
+                    <MudText Typo="Typo.body2">@BindingContext.HealthVM.Data?.LastFetched.Height</MudText>
+                    <MudText Typo="Typo.body2">@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastFetched.Timestamp))</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+                <MudIcon Icon="@Icons.Material.Filled.Save" Title="Last Committed" Size="Size.Large" />
+                <MudStack Justify="Justify.Center" Spacing="0">
+                    <MudText Typo="Typo.body1">Last Committed</MudText>
+                    <MudText Typo="Typo.body2">@BindingContext.HealthVM.Data?.LastCommitted.Height</MudText>
+                    <MudText Typo="Typo.body2">@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastCommitted.Timestamp))</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="12" sm="6" md="3">
+        <MudPaper Class="pa-4">
+            <MudStack Row="true">
+                <MudIcon Icon="@Icons.Material.Filled.Done" Title="Last Aggregated" Size="Size.Large" />
+                <MudStack Justify="Justify.Center" Spacing="0">
+                    <MudText Typo="Typo.body1">Last Aggregated</MudText>
+                    <MudText Typo="Typo.body2">@BindingContext.HealthVM.Data?.LastAggregated.Height</MudText>
+                    <MudText Typo="Typo.body2">@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastAggregated.Timestamp))</MudText>
+                </MudStack>
+            </MudStack>
+        </MudPaper>
+    </MudItem>
 
-<br />
-<MudText>Last Thor Node</MudText>
-<MudText>Height: @BindingContext.HealthVM.Data?.LastThorNode.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastThorNode.Timestamp))</MudText>
-
-<br />
-<MudText>Last Fetched</MudText>
-<MudText>Height: @BindingContext.HealthVM.Data?.LastFetched.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastFetched.Timestamp))</MudText>
-
-<br />
-<MudText>Last Committed</MudText>
-<MudText>Height: @BindingContext.HealthVM.Data?.LastCommitted.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastCommitted.Timestamp))</MudText>
-
-<br />
-<MudText>Last Aggregated</MudText>
-<MudText>Height: @BindingContext.HealthVM.Data?.LastAggregated.Height</MudText>
-<MudText>@DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.HealthVM.Data?.LastAggregated.Timestamp))</MudText>
-
-@code{
+@code {
     protected override void OnInitialized()
     {
         WatchDataLoaderVM(BindingContext.HealthVM);

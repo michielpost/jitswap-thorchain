@@ -3,23 +3,22 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.EarningsHistoryVM.DataLoader" Title="Total Earnings" />
+<DataLoaderProgress DataLoader="BindingContext.EarningsHistoryVM.DataLoader" Title="Earnings per asset" />
 @if (BindingContext.EarningsHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.EarningsHistoryVM.Data?.Intervals == null) return;
 
 
 <ApexChart @ref="chart"
-           TItem="EarningsHistoryItem"
-           XAxisType="XAxisType.Datetime"
+           TItem="EarningsHistoryItemPool"
            Options="options"
-           Title="Earnings">
+           Title="@($"Earnings per asset on {Date}")">
 
-    <ApexPointSeries TItem="EarningsHistoryItem"
-                     Items="BindingContext.EarningsHistoryVM.Data!.Intervals"
-                     Name="Total Earnings"
-                     SeriesType="SeriesType.Line"
-                     XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
-                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.Earnings) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"
+    <ApexPointSeries TItem="EarningsHistoryItemPool"
+                     Items="BindingContext.EarningsHistoryVM.Data!.Intervals.First().Pools"
+                     Name="@($"Earnings on {Date}")"
+                     SeriesType="SeriesType.Donut"
+                     XValue="@(e => e.Pool)"
+                     YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalLiquidityFeesRune) / 100000000 * Convert.ToDecimal(RunePriceUSD)))"
                      OrderBy="e=>e.X" />
 
 </ApexChart>
@@ -27,8 +26,10 @@
 
 @code {
 
-    private ApexChart<EarningsHistoryItem>? chart;
-    private ApexChartOptions<EarningsHistoryItem> options = ChartConfig.GetDefaultChartOptions<EarningsHistoryItem>();
+    private ApexChart<EarningsHistoryItemPool>? chart;
+    private ApexChartOptions<EarningsHistoryItemPool> options = ChartConfig.GetDefaultChartOptions<EarningsHistoryItemPool>();
+    private string RunePriceUSD => BindingContext.EarningsHistoryVM.Data!.Intervals.First().RunePriceUSD;
+    private string Date => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(BindingContext.EarningsHistoryVM.Data!.Intervals.First().StartTime)).ToString("yyyy-MM-dd");
 
     protected override void OnInitialized()
     {

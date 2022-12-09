@@ -1,13 +1,35 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
-<MudText Typo="Typo.h5">Global Stats</MudText>
 <DataLoaderProgress DataLoader="BindingContext.StatsDataVM.DataLoader" />
 @if (BindingContext.StatsDataVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Money" Title="Rune Price" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Rune Price</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.StatsDataVM.Data?.RunePriceUSD</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
 
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Paid" Title="Impermanent Loss Protection Paid" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Impermanent Loss Protection Paid</MudText>
+                <MudText Typo="Typo.body2">@Formatters.ToRune(BindingContext.StatsDataVM.Data?.ImpermanentLossProtectionPaid)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
 <MudText>Rune Depth: @BindingContext.StatsDataVM.Data?.RuneDepth</MudText>
 <MudText>Switched Rune: @BindingContext.StatsDataVM.Data?.SwitchedRune</MudText>
-<MudText>Rune Price USD: @BindingContext.StatsDataVM.Data?.RunePriceUSD</MudText>
 
 <MudText>Swap Volume: @BindingContext.StatsDataVM.Data?.SwapVolume</MudText>
 <MudText>Swap Count 24h: @BindingContext.StatsDataVM.Data?.SwapCount24h</MudText>
@@ -36,8 +58,7 @@
 <MudText>Withdraw Volume: @BindingContext.StatsDataVM.Data?.WithdrawVolume</MudText>
 <MudText>Withdraw Count: @BindingContext.StatsDataVM.Data?.WithdrawCount</MudText>
 
-<br />
-<MudText>Impermanent Loss Protection Paid: @BindingContext.StatsDataVM.Data?.ImpermanentLossProtectionPaid</MudText>
+</MudItem>
 
 
 @code {
