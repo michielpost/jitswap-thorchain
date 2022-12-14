@@ -290,10 +290,12 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
 
 <div class="mud-container mud-container-maxwidth-false mt-16 px-8"><h3 class="mud-typography mud-typography-h3">Assets</h3>
 
-    <div class="mud-grid mud-grid-spacing-xs-3 justify-start"><div class="mud-grid-item mud-grid-item-xs-12"><div class="mud-paper mud-elevation-2 pa-4" style=""><span class="mud-typography mud-typography-overline">Error Asset List</span></div></div></div></div></div>
+    <div class="mud-grid mud-grid-spacing-xs-3 justify-start"><div class="mud-grid-item mud-grid-item-xs-12"><div class="mud-paper mud-elevation-2 pa-4" style=""><span class="mud-typography mud-typography-overline">Error Asset List</span>
+<div class="mud-progress-linear mud-progress-indeterminate mud-progress-linear-small mud-progress-linear-color-primary horizontal mud-flip-x-rtl my-7" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><div class="mud-progress-linear-bars"><div class="mud-progress-linear-bar"></div>
+            <div class="mud-progress-linear-bar"></div></div></div></div></div></div></div></div>
     <div class="mud-container mud-container-maxwidth-lg"><hr class="mud-divider my-6" />
         <h6 class="mud-typography mud-typography-subtitle2 mud-typography-align-center">
-            Copyright 2022 | Version: 0.0.1-<a href="https://github.com/michielpost/jitswap-thorchain/tree/785fd21" target="_blank" b-5hgowzk1bx>785fd21</a></h6></div></div>
+            Copyright 2022 | Version: 0.0.1-<a href="https://github.com/michielpost/jitswap-thorchain/tree/ea2de4f" target="_blank" b-5hgowzk1bx>ea2de4f</a></h6></div></div>
         
 
 </div>
@@ -305,10 +307,32 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_content/Blazor-ApexCharts/js/apex-charts.min.js"></script>
     <script src="_content/Blazor-ApexCharts/js/blazor-apex-charts.js"></script>
+    <script type="module">
+        import { BrotliDecode } from './decode.min.js';
+        Blazor.start({
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+                    return (async function () {
+                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseArray = new Int8Array(originalResponseBuffer);
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                        const contentType = type ===
+                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                        return new Response(decompressedResponseArray,
+                            { headers: { 'content-type': contentType } });
+                    })();
+                }
+            }
+        });
+    </script>
 
 
 

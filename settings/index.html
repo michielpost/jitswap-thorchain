@@ -292,7 +292,7 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
                 <p class="mud-typography mud-typography-body1">TODO</p></div></div></div></div></div>
     <div class="mud-container mud-container-maxwidth-lg"><hr class="mud-divider my-6" />
         <h6 class="mud-typography mud-typography-subtitle2 mud-typography-align-center">
-            Copyright 2022 | Version: 0.0.1-<a href="https://github.com/michielpost/jitswap-thorchain/tree/785fd21" target="_blank" b-5hgowzk1bx>785fd21</a></h6></div></div>
+            Copyright 2022 | Version: 0.0.1-<a href="https://github.com/michielpost/jitswap-thorchain/tree/ea2de4f" target="_blank" b-5hgowzk1bx>ea2de4f</a></h6></div></div>
         
 
 </div>
@@ -304,10 +304,32 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_content/Blazor-ApexCharts/js/apex-charts.min.js"></script>
     <script src="_content/Blazor-ApexCharts/js/blazor-apex-charts.js"></script>
+    <script type="module">
+        import { BrotliDecode } from './decode.min.js';
+        Blazor.start({
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+                    return (async function () {
+                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+                        if (!response.ok) {
+                            throw new Error(response.statusText);
+                        }
+                        const originalResponseBuffer = await response.arrayBuffer();
+                        const originalResponseArray = new Int8Array(originalResponseBuffer);
+                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
+                        const contentType = type ===
+                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+                        return new Response(decompressedResponseArray,
+                            { headers: { 'content-type': contentType } });
+                    })();
+                }
+            }
+        });
+    </script>
 
 
 
