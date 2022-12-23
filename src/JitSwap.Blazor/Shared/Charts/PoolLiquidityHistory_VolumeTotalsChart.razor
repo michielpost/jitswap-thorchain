@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolLiquidityHistoryVM.DataLoader" Title="@($"{BindingContext.SelectedAsset} Liquidity Volume")" />
+<DataLoaderProgress DataLoader="BindingContext.PoolLiquidityHistoryVM.DataLoader" Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Liquidity Volume")" />
 @if (BindingContext.PoolLiquidityHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.PoolLiquidityHistoryVM.Data?.Intervals == null) return;
 
@@ -12,7 +12,7 @@
            TItem="LiquidityHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{BindingContext.SelectedAsset} Liquidity Volume")">
+           Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Liquidity Volume")">
 
     <ApexPointSeries TItem="LiquidityHistoryItem"
                      Items="BindingContext.PoolLiquidityHistoryVM.Data!.Intervals"

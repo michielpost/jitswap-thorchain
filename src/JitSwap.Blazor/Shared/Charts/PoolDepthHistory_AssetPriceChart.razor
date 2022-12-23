@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistoryVM.DataLoader" Title="@($"{BindingContext.SelectedAsset} Price History")" />
+<DataLoaderProgress DataLoader="BindingContext.PoolDepthHistoryVM.DataLoader" Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Price History")" />
 @if (BindingContext.PoolDepthHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.PoolDepthHistoryVM.Data?.Intervals == null) return;
 
@@ -12,11 +12,11 @@
            TItem="DepthHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{BindingContext.SelectedAsset} Price History")">
+           Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Price History")">
 
     <ApexPointSeries TItem="DepthHistoryItem"
                      Items="BindingContext.PoolDepthHistoryVM.Data?.Intervals"
-                     Name="@($"{BindingContext.SelectedAsset} price")"
+                     Name="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} price")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToDecimal(e.AssetPriceUSD)))"

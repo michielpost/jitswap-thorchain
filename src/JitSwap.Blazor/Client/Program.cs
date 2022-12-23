@@ -4,6 +4,7 @@ using JitSwap.Blazor.Services;
 using JitSwap.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor;
 using MudBlazor.Services;
 using System.Reflection;
 using webvNext.DataLoader.Cache;
@@ -49,7 +50,15 @@ namespace JitSwap.Blazor
 
         private static void ConfigureServices(IServiceCollection services, string baseAddress)
         {
-            services.AddMudServices();
+            services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopRight;
+
+                config.SnackbarConfiguration.PreventDuplicates = false;
+                config.SnackbarConfiguration.NewestOnTop = false;
+                config.SnackbarConfiguration.ShowCloseIcon = true;
+                config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+            });
 
             //Set Version
             Version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;

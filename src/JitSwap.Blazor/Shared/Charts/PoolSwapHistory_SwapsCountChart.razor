@@ -3,7 +3,7 @@
 @using ApexCharts;
 @inherits MvvmComponentBase<MainViewModel>
 
-<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryVM.DataLoader" Title="@($"{BindingContext.SelectedAsset} Swap Count")" />
+<DataLoaderProgress DataLoader="BindingContext.PoolSwapHistoryVM.DataLoader" Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Swap Count")" />
 @if (BindingContext.PoolSwapHistoryVM.DataLoader.LoadingState != LoadingState.Finished) return;
 @if (BindingContext.PoolSwapHistoryVM.Data?.Intervals == null) return;
 
@@ -12,11 +12,11 @@
            TItem="SwapHistoryItem"
            XAxisType="XAxisType.Datetime"
            Options="options"
-           Title="@($"{BindingContext.SelectedAsset} Swap Count")">
+           Title="@($"{Utils.AssetFromString(BindingContext.SelectedAsset).Short} Swap Count")">
 
     <ApexPointSeries TItem="SwapHistoryItem"
                      Items="BindingContext.PoolSwapHistoryVM.Data!.Intervals"
-                     Name="@($"to {BindingContext.SelectedAsset}")"
+                     Name="@($"to {Utils.AssetFromString(BindingContext.SelectedAsset).Short}")"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.ToAssetCount)))"

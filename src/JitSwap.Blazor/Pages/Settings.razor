@@ -1,16 +1,51 @@
 ﻿@page "/settings"
 @using JitSwap.Blazor.ViewModels;
 @inherits MvvmComponentBase<MainViewModel>
+@inject MainViewModel MainViewModel
+@inject ISnackbar Snackbar
 
 <PageTitle>Settings</PageTitle>
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudText Typo="Typo.h3">Settings</MudText>
+
     <MudGrid>
-        <MudItem >
-            <MudPaper Elevation="2" Class="pa-4">
-                <MudText Typo="Typo.h2">Settings</MudText>
-                <MudText>TODO</MudText>
+        <MudItem xs="12" sm="6" md="6">
+            <MudPaper Class="pa-4">
+                <MudSelect @bind-Value="newUrl" T="string" Label="Select Midgard API" AnchorOrigin="Origin.BottomCenter" FullWidth="true">
+                    <MudSelectItem Value="@("https://midgard.ninerealms.com")" />
+                    <MudSelectItem Value="@("https://midgard.thorswap.net")" />
+                    <MudSelectItem Value="@("https://stagenet-midgard.ninerealms.com")" />
+                </MudSelect>
             </MudPaper>
+
+            <MudPaper Class="pa-4">
+                <MudTextField T="string" @bind-Value="customUrl" Label="Custom URL" InputType="InputType.Url" />
+            </MudPaper>
+
+            <MudButton OnClick="Submit">Save</MudButton>
         </MudItem>
     </MudGrid>
 </MudContainer>
+
+@code {
+    private string? newUrl { get; set; }
+    private string? customUrl { get; set; }
+
+    protected override void OnInitialized()
+    {
+        newUrl = MainViewModel.MidgardUrl;
+        base.OnInitialized();
+    }
+
+    void Submit()
+    {
+        if (!string.IsNullOrEmpty(newUrl))
+            MainViewModel.MidgardUrl = newUrl;
+        if (!string.IsNullOrEmpty(customUrl))
+            MainViewModel.MidgardUrl = customUrl;
+
+        Snackbar.Add("Settings saved, reloading data...", Severity.Info);
+    }
+
+}
