@@ -7,7 +7,7 @@ namespace JitSwap.Blazor.Pages
     {
         protected override Task LoadDataAsync()
         {
-            BindingContext.LoadTotalValueLockedHistory(Midgard.Interval5.Day, 60, null, null);
+            BindingContext.LoadTotalValueLockedHistory(Midgard.Interval5.Day, 31, null, null);
             BindingContext.LoadChurnList();
 
             return base.LoadDataAsync();

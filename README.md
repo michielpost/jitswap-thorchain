@@ -32,10 +32,9 @@ Live version:
     - Used with MemoryCache
 
 ## TODO
-- Earnings per pool pie/round chart
-- Humanizer
-- Settings page (API url and other settings)
-- Structure and Styling
+- Humanizer?
+- Savers page
+
 
 ## Roadmap (help needed!)
 - Logo

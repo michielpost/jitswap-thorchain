@@ -14,6 +14,7 @@ namespace JitSwap.Blazor
     public class Program
     {
         public static string? Version { get; set; }
+        public static string PageTitlePostFix => "JITSwap on THORChain";
 
         public static string? GetVersionHash()
         {

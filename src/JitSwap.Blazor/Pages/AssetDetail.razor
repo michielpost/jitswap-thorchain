@@ -2,7 +2,7 @@
 @using JitSwap.Blazor.ViewModels;
 @inherits MvvmComponentBase<MainViewModel>
 
-<PageTitle>@Utils.AssetFromString(Asset).Ticker Pool Details</PageTitle>
+<PageTitle>@Utils.AssetFromString(Asset).Ticker Pool Details - @Program.PageTitlePostFix</PageTitle>
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
     <MudText Typo="Typo.h3">@Utils.AssetFromString(Asset).Ticker</MudText>
