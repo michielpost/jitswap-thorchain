@@ -10,7 +10,7 @@
       "Blazor-ApexCharts.dll": "sha256-15a08MS1dcFdtIKSUI2+XC6CAqKAGKMllHX66tLihcM=",
       "Blazored.LocalStorage.dll": "sha256-eXVgTw72kEn74FZgDQbLtvAmXbiZDSj5gzUnxVmwowQ=",
       "CommunityToolkit.Mvvm.dll": "sha256-QyUW+7VcRgHrhy9yzkHUhIvNn1s4FWClhmKDHHFKnFk=",
-      "JitSwap.Blazor.dll": "sha256-axEjY3xRU+rvj90f\/1tFh9JJgU1V2Jy7LuyWYcwI3T8=",
+      "JitSwap.Blazor.dll": "sha256-yOaXeHiW5wx25fn2\/LZ30sptDFxDW99Qn7Byo\/63cFg=",
       "Microsoft.AspNetCore.Components.dll": "sha256-tMotw7xznxOripcJq2+Nhfxv4lzvjgPayRzt56X2Fns=",
       "Microsoft.AspNetCore.Components.Forms.dll": "sha256-mMAvME0N3JYHVEVcs\/l3o685lcq\/fJC6xr3mJ3iNAGY=",
       "Microsoft.AspNetCore.Components.QuickGrid.dll": "sha256-PW\/wHFaTp8vYiuguHaQ3AwRZufEAL3poOUlA2LvA0BA=",
@@ -27,7 +27,7 @@
       "Microsoft.Extensions.Primitives.dll": "sha256-eXvGx2jcjpTPEJoAHBsW\/VuMPbNyyU+AsuhPmkzSSRY=",
       "Microsoft.JSInterop.dll": "sha256-5NVnfatRxVTRYlQvYgLMdoISdpbjsk\/VW4jSt7yfpA0=",
       "Microsoft.JSInterop.WebAssembly.dll": "sha256-bn\/jJGkSeaQbmqAl6uUM0y1joLrVEzldOc3y5mscYMk=",
-      "MudBlazor.dll": "sha256-DM4WnaOqzbn9AYMpjAk6VTDmz96HZ9mdt+WG7NJl800=",
+      "MudBlazor.dll": "sha256-AWYd1w0yEdgmldas2NP39GDwlo9WZaf+xICmA4ZIIP8=",
       "System.Collections.Concurrent.dll": "sha256-nJdfgk2t7RgpnDpH1mtFqP25kCn7Zgg9qt1a0u82DsE=",
       "System.Collections.dll": "sha256-6bVcc7f23lDSoIejzcLh50DVSdQPITv9nTZsW5MLEO0=",
       "System.ComponentModel.Annotations.dll": "sha256-Il39kvpaTayCBgVG4+n+HC77SJHm57KA\/tW96\/Ykbfk=",
@@ -52,7 +52,7 @@
       "System.Text.Json.dll": "sha256-QRqJtJUqnh2wiUBvuFGPN4vjMHPTpYcg466swakTH2M=",
       "System.Text.RegularExpressions.dll": "sha256-6PtlyUinIrKc2Resg5uOsB4\/tm0mvbTn3V5xIF1LDXs=",
       "System.Threading.dll": "sha256-bsU+q53OkgajbgMUeEpBf\/m7TEMgC48wljQG6wO4TMs=",
-      "webvNext.DataLoader.dll": "sha256-dZE5HgxvCOTF1Wn9c\/WA8JCRlya38w7ilxGUB\/nmRUw="
+      "webvNext.DataLoader.dll": "sha256-NQUU2K0as7tKQekh0mr0wSdMAAQ990Za6VOtCffVrjg="
     },
     "extensions": null,
     "lazyAssembly": null,
