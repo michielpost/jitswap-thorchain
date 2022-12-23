@@ -9,7 +9,7 @@
             <MudIcon Icon="@Icons.Material.Filled.Money" Title="Rune Price" Size="Size.Large" />
             <MudStack Justify="Justify.Center" Spacing="0">
                 <MudText Typo="Typo.body1">Rune Price</MudText>
-                <MudText Typo="Typo.body2">@BindingContext.StatsDataVM.Data?.RunePriceUSD</MudText>
+                <MudText Typo="Typo.body2">@Formatters.ToUSD(BindingContext.StatsDataVM.Data?.RunePriceUSD)</MudText>
             </MudStack>
         </MudStack>
     </MudPaper>
@@ -28,15 +28,26 @@
 </MudItem>
 
 <MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.SwapHoriz" Title="Swap Count" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Swap Count</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.StatsDataVM.Data?.SwapCount24h (24h)</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.StatsDataVM.Data?.SwapCount30d (30d)</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.StatsDataVM.Data?.SwapCount (all)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+@*<MudItem xs="12" sm="6" md="3">
 <MudText>Rune Depth: @BindingContext.StatsDataVM.Data?.RuneDepth</MudText>
 <MudText>Switched Rune: @BindingContext.StatsDataVM.Data?.SwitchedRune</MudText>
 
 <MudText>Swap Volume: @BindingContext.StatsDataVM.Data?.SwapVolume</MudText>
-<MudText>Swap Count 24h: @BindingContext.StatsDataVM.Data?.SwapCount24h</MudText>
-<MudText>Swap Count 30d: @BindingContext.StatsDataVM.Data?.SwapCount30d</MudText>
-<MudText>Swap Count: @BindingContext.StatsDataVM.Data?.SwapCount</MudText>
 
-<MudText>Unique Swapper Count: @BindingContext.StatsDataVM.Data?.UniqueSwapperCount</MudText>
+
 
 <br />
 <MudText>To Asset Count: @BindingContext.StatsDataVM.Data?.ToAssetCount</MudText>
@@ -47,10 +58,6 @@
 <MudText>Synth Burn Count: @BindingContext.StatsDataVM.Data?.SynthBurnCount</MudText>
 
 <br />
-<MudText>Daily Active Users: @BindingContext.StatsDataVM.Data?.DailyActiveUsers</MudText>
-<MudText>Monthly Active Users: @BindingContext.StatsDataVM.Data?.MonthlyActiveUsers</MudText>
-
-<br />
 <MudText>Add Liquidity Count: @BindingContext.StatsDataVM.Data?.AddLiquidityCount</MudText>
 <MudText>Add Liquidity Volume: @BindingContext.StatsDataVM.Data?.AddLiquidityVolume</MudText>
 
@@ -58,7 +65,7 @@
 <MudText>Withdraw Volume: @BindingContext.StatsDataVM.Data?.WithdrawVolume</MudText>
 <MudText>Withdraw Count: @BindingContext.StatsDataVM.Data?.WithdrawCount</MudText>
 
-</MudItem>
+</MudItem>*@
 
 
 @code {

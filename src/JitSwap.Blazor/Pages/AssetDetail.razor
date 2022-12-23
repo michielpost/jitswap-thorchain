@@ -2,56 +2,54 @@
 @using JitSwap.Blazor.ViewModels;
 @inherits MvvmComponentBase<MainViewModel>
 
-<PageTitle>@Asset Pool Details</PageTitle>
+<PageTitle>@Utils.AssetFromString(Asset).Ticker Pool Details</PageTitle>
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudText Typo="Typo.h3">@Utils.AssetFromString(Asset).Ticker</MudText>
+    <MudText Typo="Typo.caption">@Utils.AssetFromString(Asset).Chain.@Utils.AssetFromString(Asset).Ticker</MudText>
+
     <MudGrid>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-                <PoolDetails />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-                <PoolStats />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
-            <MudPaper Elevation="2" Class="pa-4">
-                <PoolDepthHistory_DepthChart />
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        @*<PoolDetails />*@
+        <PoolStats />
+      
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolDepthHistory_AssetPriceChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+
+        <MudItem xs="12" sm="6" md="6">
+            <MudPaper Elevation="2" Class="pa-4">
+                <PoolDepthHistory_DepthChart />
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolSwapHistory_SwapsCountChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolSwapHistory_SwapsVolumeChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolSwapHistory_SwapsFeesChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolSwapHistory_SwapsTotalsChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolLiquidityHistory_VolumeTotalsChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <PoolLiquidityHistory_CountTotalsChart />
             </MudPaper>

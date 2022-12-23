@@ -17,7 +17,7 @@
                      Items="BindingContext.EarningsHistoryVM.Data!.Intervals.First().Pools"
                      Name="@($"Earnings on {Date}")"
                      SeriesType="SeriesType.Donut"
-                     XValue="@(e => e.Pool)"
+                     XValue="@(e => Utils.AssetFromString(e.Pool).Short)"
                      YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.TotalLiquidityFeesRune) / 100000000 * Convert.ToDecimal(RunePriceUSD)))"
                      OrderBy="e=>e.X" />
 

@@ -2,6 +2,7 @@
 {
     public enum Chain
     {
+        Unknown,
         BNB,
         BTC,
         ETH,
@@ -9,6 +10,8 @@
         GAIA,
         POLKA,
         BCH,
-        LTC
+        LTC,
+        AVAX,
+        DOGE
     }
 }

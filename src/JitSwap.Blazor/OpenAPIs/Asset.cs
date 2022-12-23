@@ -19,5 +19,7 @@ namespace JitSwap.Blazor.OpenAPIs
         /// </summary>
         [JsonPropertyName("ticker")]
         public virtual string Ticker { get; set; } = default!;
+
+        public string Short => $"{Ticker}.{Chain}";
     }
 }

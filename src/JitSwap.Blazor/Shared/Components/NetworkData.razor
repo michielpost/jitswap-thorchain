@@ -1,11 +1,35 @@
 ﻿@inherits MvvmComponentBase<MainViewModel>
 
-<MudText Typo="Typo.h5">Network Data</MudText>
 <DataLoaderProgress DataLoader="BindingContext.NetworkDataVM.DataLoader" />
 @if (BindingContext.NetworkDataVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Percent" Title="APY" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">APY</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.NetworkDataVM.Data?.LiquidityAPY (liquidity)</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.NetworkDataVM.Data?.BondingAPY (Bonding)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
 
-<MudText>Bond Metrics</MudText>
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.CloudSync" Title="Nodes" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Active Nodes</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.NetworkDataVM.Data?.ActiveNodeCount</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.NetworkDataVM.Data?.StandbyNodeCount (standby)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+@*<MudText>Bond Metrics</MudText>
 <MudText>Total Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.TotalActiveBond</MudText>
 <MudText>Average Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.AverageActiveBond</MudText>
 <MudText>Median Active Bond: @BindingContext.NetworkDataVM.Data?.BondMetrics.MedianActiveBond</MudText>
@@ -26,15 +50,11 @@
 <MudText>Pool Reward: @BindingContext.NetworkDataVM.Data?.BlockRewards.PoolReward</MudText>
 
 <br />
-<MudText>Active Node Count: @BindingContext.NetworkDataVM.Data?.ActiveNodeCount</MudText>
-<MudText>Standby Node Count: @BindingContext.NetworkDataVM.Data?.StandbyNodeCount</MudText>
 <MudText>Total Pooled Rune: @BindingContext.NetworkDataVM.Data?.TotalPooledRune</MudText>
 <MudText>Total Reserve: @BindingContext.NetworkDataVM.Data?.TotalReserve</MudText>
 <MudText>Next Churn Height: @BindingContext.NetworkDataVM.Data?.NextChurnHeight</MudText>
 <MudText>Pool Activation Countdown: @BindingContext.NetworkDataVM.Data?.PoolActivationCountdown</MudText>
-<MudText>Pool Share Factor: @BindingContext.NetworkDataVM.Data?.PoolShareFactor</MudText>
-<MudText>Bonding APY: @BindingContext.NetworkDataVM.Data?.BondingAPY</MudText>
-<MudText>Liquidity APY: @BindingContext.NetworkDataVM.Data?.LiquidityAPY</MudText>
+<MudText>Pool Share Factor: @BindingContext.NetworkDataVM.Data?.PoolShareFactor</MudText>*@
 
 @code {
     protected override void OnInitialized()

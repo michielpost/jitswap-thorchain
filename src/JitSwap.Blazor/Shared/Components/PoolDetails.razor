@@ -1,16 +1,49 @@
 ﻿@using CommunityToolkit.Mvvm.ComponentModel;
 @inherits MvvmComponentBase<MainViewModel>
 
-<MudText Typo="Typo.h5">Pool Details</MudText>
 <DataLoaderProgress DataLoader="BindingContext.PoolDetailVM.DataLoader" />
 @if (BindingContext.PoolDetailVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Asset: @BindingContext.PoolDetailVM.Data?.Asset</MudText>
-<MudText>Volume24h: @BindingContext.PoolDetailVM.Data?.Volume24h</MudText>
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Paid" Title="Price" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Price</MudText>
+                <MudText Typo="Typo.body2">@Formatters.ToUSD(BindingContext.PoolDetailVM.Data?.AssetPriceUSD)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.BarChart" Title="Volume" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Volume (24h)</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.PoolDetailVM.Data?.Volume24h</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Percent" Title="APY" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">APY</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.PoolDetailVM.Data?.PoolAPY</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+@*
 <MudText>AssetDepth: @BindingContext.PoolDetailVM.Data?.AssetDepth</MudText>
 <MudText>RuneDepth: @BindingContext.PoolDetailVM.Data?.RuneDepth</MudText>
 <MudText>AssetPrice: @BindingContext.PoolDetailVM.Data?.AssetPrice</MudText>
-<MudText>AssetPriceUSD: @BindingContext.PoolDetailVM.Data?.AssetPriceUSD</MudText>
 <MudText>AnnualPercentageRate: @BindingContext.PoolDetailVM.Data?.AnnualPercentageRate</MudText>
 <MudText>PoolAPY: @BindingContext.PoolDetailVM.Data?.PoolAPY</MudText>
 <MudText>Status: @BindingContext.PoolDetailVM.Data?.Status</MudText>
@@ -20,7 +53,7 @@
 <MudText>Units: @BindingContext.PoolDetailVM.Data?.Units</MudText>
 <MudText>NativeDecimal: @BindingContext.PoolDetailVM.Data?.NativeDecimal</MudText>
 <MudText>SaversUnits: @BindingContext.PoolDetailVM.Data?.SaversUnits</MudText>
-<MudText>SaversDepth: @BindingContext.PoolDetailVM.Data?.SaversDepth</MudText>
+<MudText>SaversDepth: @BindingContext.PoolDetailVM.Data?.SaversDepth</MudText>*@
 
 @code {
     protected override void OnInitialized()

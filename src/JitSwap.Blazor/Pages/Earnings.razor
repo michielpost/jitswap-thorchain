@@ -2,10 +2,10 @@
 @using JitSwap.Blazor.ViewModels;
 @inherits MvvmComponentBase<MainViewModel>
 
-<PageTitle>Network</PageTitle>
+<PageTitle>Earnings</PageTitle>
 
 <MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
-    <MudText Typo="Typo.h3">Network</MudText>
+    <MudText Typo="Typo.h3">Earnings</MudText>
 
     <MudGrid>
         <MudItem xs="12" sm="6">
@@ -18,7 +18,7 @@
                 <TotalValueLockedHistory_TotalChart />
             </MudPaper>
         </MudItem>
-        <MudItem xs="12" sm="6" md="4">
+        <MudItem xs="12" sm="6" md="6">
             <MudPaper Elevation="2" Class="pa-4">
                 <EarningsHistory_PoolDonutChart />
             </MudPaper>

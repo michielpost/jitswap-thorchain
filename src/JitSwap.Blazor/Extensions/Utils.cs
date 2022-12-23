@@ -1,4 +1,6 @@
-﻿namespace JitSwap.Blazor.OpenAPIs
+﻿using JitSwap.Blazor.OpenAPIs;
+
+namespace JitSwap.Blazor.Extensions
 {
     /// <summary>
     /// https://github.com/SLjavad/xchain.net/blob/master/XchainDotnet.Client/Utils.cs
@@ -42,19 +44,22 @@
         /// </summary>
         /// <param name="assetString">the given string</param>
         /// <returns>The asset from the given string</returns>
-        public static Asset? AssetFromString(string assetString)
+        public static Asset AssetFromString(string? assetString)
         {
+            if (string.IsNullOrWhiteSpace(assetString))
+                return new();
+
             var data = assetString.Split(".");
             if (data.Length <= 1 || data[1]?.Length < 1)
             {
-                return null;
+                return new Asset();
             }
 
             var chain = data[0];
 
             if (string.IsNullOrEmpty(chain) || !IsChain(chain))
             {
-                return null;
+                return new Asset();
             }
 
             var symbol = data[1];

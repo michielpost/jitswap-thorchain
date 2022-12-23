@@ -19,8 +19,8 @@ namespace JitSwap.Blazor.Pages
         {
             if (!string.IsNullOrEmpty(Asset))
             {
+                //BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
                 BindingContext.LoadPoolStatsDetail(Asset, Midgard.Period2._30d);
-                BindingContext.LoadPoolDetail(Asset, Midgard.Period._30d);
 
                 BindingContext.LoadPoolDepthHistory(Asset, Midgard.Interval.Day, 30, null, null);
                 BindingContext.LoadPoolSwapHistory(Asset, Midgard.Interval4.Day, 30, null, null);

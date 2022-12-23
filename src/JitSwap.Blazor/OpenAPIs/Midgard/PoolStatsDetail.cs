@@ -1,4 +1,5 @@
-﻿using JitSwap.Blazor.OpenAPIs;
+﻿using JitSwap.Blazor.Extensions;
+using JitSwap.Blazor.OpenAPIs;
 
 namespace Midgard
 {

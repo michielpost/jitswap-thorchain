@@ -18,7 +18,7 @@
     {
         <ApexPointSeries TItem="EarningsHistoryItem"
                      Items="BindingContext.EarningsHistoryVM.Data!.Intervals"
-                     Name="@pool"
+                     Name="@Utils.AssetFromString(pool).Short"
                      SeriesType="SeriesType.Line"
                      XValue="@(e => DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(e.StartTime)))"
                      YAggregate="@(e => e.Sum(e => Convert.ToInt64(e.Pools.Where(x => x.Pool == pool).First().Earnings) / 100000000 * Convert.ToDecimal(e.RunePriceUSD)))"

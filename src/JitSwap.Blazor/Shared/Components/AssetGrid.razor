@@ -14,17 +14,19 @@
                 </div>
             </ColumnOptions>
             <ChildContent>
-                <b><a href="assets/@context.Asset">@context.Asset</a></b>
+                <b><a href="assets/@context.Asset">@Utils.AssetFromString(context.Asset).Ticker</a></b>
             </ChildContent>
         </TemplateColumn>
+        <PropertyColumn Property="@(c => @Utils.AssetFromString(c.Asset).Chain)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+        @*<PropertyColumn Property="@(c => @Utils.AssetFromString(c.Asset).Ticker)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />*@
         <PropertyColumn Property="@(c => c.Volume24h)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-        <PropertyColumn Property="@(c => c.RuneDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+        @*<PropertyColumn Property="@(c => c.RuneDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.AssetDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.AssetPrice)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-        <PropertyColumn Property="@(c => c.AssetPriceUSD)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-        <PropertyColumn Property="@(c => c.AnnualPercentageRate)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-        <PropertyColumn Property="@(c => c.PoolAPY)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-        <PropertyColumn Property="@(c => c.Status)" Sortable="true" />
+        *@<PropertyColumn Property="@(c => Formatters.ToUSD(c.AssetPriceUSD))" Title="Price" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+        @*<PropertyColumn Property="@(c => c.AnnualPercentageRate)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+       *@ <PropertyColumn Property="@(c => c.PoolAPY)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
+       @* <PropertyColumn Property="@(c => c.Status)" Sortable="true" />
         <PropertyColumn Property="@(c => c.LiquidityUnits)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.SynthUnits)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.SynthSupply)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
@@ -32,7 +34,7 @@
         <PropertyColumn Property="@(c => c.NativeDecimal)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.SaversUnits)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
         <PropertyColumn Property="@(c => c.SaversDepth)" Sortable="true" Align="Microsoft.AspNetCore.Components.QuickGrid.Align.Right" />
-    </QuickGrid>
+    *@</QuickGrid>
 
     <Paginator Value="@pagination" />
 }
@@ -42,7 +44,7 @@
     string nameFilter = string.Empty;
 
     GridSort<PoolDetail> sortByName = GridSort<PoolDetail>
-      .ByAscending(p => p.Asset);
+      .ByAscending(p => Utils.AssetFromString(p.Asset).Ticker);
 
     IQueryable<PoolDetail>? FilteredItems => BindingContext.PoolsListVM.Data?.AsQueryable()?.Where(x => x.Asset.Contains(nameFilter, StringComparison.CurrentCultureIgnoreCase));
 

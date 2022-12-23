@@ -1,14 +1,59 @@
 ﻿@using CommunityToolkit.Mvvm.ComponentModel;
 @inherits MvvmComponentBase<MainViewModel>
 
-<MudText Typo="Typo.h5">Pool Stats</MudText>
 <DataLoaderProgress DataLoader="BindingContext.PoolStatsDetailVM.DataLoader" />
 @if (BindingContext.PoolStatsDetailVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
-<MudText>Asset: @BindingContext.PoolStatsDetailVM.Data?.Asset</MudText>
-<MudText>Status: @BindingContext.PoolStatsDetailVM.Data?.Status</MudText>
-<MudText>AssetPrice: @BindingContext.PoolStatsDetailVM.Data?.AssetPrice</MudText>
-<MudText>AssetPriceUSD: @BindingContext.PoolStatsDetailVM.Data?.AssetPriceUSD</MudText>
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Paid" Title="Price" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Price</MudText>
+                <MudText Typo="Typo.body2">@Formatters.ToUSD(BindingContext.PoolStatsDetailVM.Data?.AssetPriceUSD)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.BarChart" Title="Volume" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Volume (24h)</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.PoolStatsDetailVM.Data?.SwapVolume</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Percent" Title="APY" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">APY</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.PoolStatsDetailVM.Data?.PoolAPY</MudText>
+                <MudText Typo="Typo.body2">@BindingContext.PoolStatsDetailVM.Data?.AnnualPercentageRate (annual)APY</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+
+<MudItem xs="12" sm="6" md="3">
+    <MudPaper Class="pa-4">
+        <MudStack Row="true">
+            <MudIcon Icon="@Icons.Material.Filled.Paid" Title="Fees" Size="Size.Large" />
+            <MudStack Justify="Justify.Center" Spacing="0">
+                <MudText Typo="Typo.body1">Fees</MudText>
+                <MudText Typo="Typo.body2">@Formatters.ToUSD(BindingContext.PoolStatsDetailVM.Data?.TotalFees)</MudText>
+            </MudStack>
+        </MudStack>
+    </MudPaper>
+</MudItem>
+@*
+
 <MudText>AssetDepth: @BindingContext.PoolStatsDetailVM.Data?.AssetDepth</MudText>
 <MudText>RuneDepth: @BindingContext.PoolStatsDetailVM.Data?.RuneDepth</MudText>
 <MudText>SynthUnits: @BindingContext.PoolStatsDetailVM.Data?.SynthUnits</MudText>
@@ -21,17 +66,13 @@
 <MudText>SwapVolume: @BindingContext.PoolStatsDetailVM.Data?.SwapVolume</MudText>
 <MudText>ToAssetCount: @BindingContext.PoolStatsDetailVM.Data?.ToAssetCount</MudText>
 <MudText>ToRuneCount: @BindingContext.PoolStatsDetailVM.Data?.ToRuneCount</MudText>
-<MudText>SwapCount: @BindingContext.PoolStatsDetailVM.Data?.SwapCount</MudText>
+
 <MudText>UniqueSwapperCount: @BindingContext.PoolStatsDetailVM.Data?.UniqueSwapperCount</MudText>
 <MudText>ToAssetAverageSlip: @BindingContext.PoolStatsDetailVM.Data?.ToAssetAverageSlip</MudText>
 <MudText>ToRuneAverageSlip: @BindingContext.PoolStatsDetailVM.Data?.ToRuneAverageSlip</MudText>
 <MudText>AverageSlip: @BindingContext.PoolStatsDetailVM.Data?.AverageSlip</MudText>
 <MudText>ToAssetFees: @BindingContext.PoolStatsDetailVM.Data?.ToAssetFees</MudText>
 <MudText>ToRuneFees: @BindingContext.PoolStatsDetailVM.Data?.ToRuneFees</MudText>
-<MudText>TotalFees: @BindingContext.PoolStatsDetailVM.Data?.TotalFees</MudText>
-
-<MudText>AnnualPercentageRate: @BindingContext.PoolStatsDetailVM.Data?.AnnualPercentageRate</MudText>
-<MudText>PoolAPY: @BindingContext.PoolStatsDetailVM.Data?.PoolAPY</MudText>
 
 <MudText>AddAssetLiquidityVolume: @BindingContext.PoolStatsDetailVM.Data?.AddAssetLiquidityVolume</MudText>
 <MudText>AddRuneLiquidityVolume: @BindingContext.PoolStatsDetailVM.Data?.AddRuneLiquidityVolume</MudText>
@@ -43,7 +84,7 @@
 <MudText>WithdrawVolume: @BindingContext.PoolStatsDetailVM.Data?.WithdrawVolume</MudText>
 <MudText>WithdrawCount: @BindingContext.PoolStatsDetailVM.Data?.WithdrawCount</MudText>
 <MudText>UniqueMemberCount: @BindingContext.PoolStatsDetailVM.Data?.UniqueMemberCount</MudText>
-
+*@
 @code {
     protected override void OnInitialized()
     {
