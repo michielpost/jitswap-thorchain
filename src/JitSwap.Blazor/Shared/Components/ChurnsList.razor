@@ -7,8 +7,8 @@
 @if (BindingContext.ChurnListVM.Data == null || BindingContext.ChurnListVM.DataLoader.LoadingState != LoadingState.Finished) return;
 
 <QuickGrid Items="@BindingContext.ChurnListVM.Data!.AsQueryable()" Pagination="@pagination">
-    <PropertyColumn Property="@(p => p.Height)" Sortable="true" />
-    <PropertyColumn Property="@(p => DateTimeOffsetExtensions.FromUnixTimeNanoseconds(long.Parse(p.Date)))" Format="yyyy-MM-dd hh:mm" Sortable="true" Title="Date" />
+    <Microsoft.AspNetCore.Components.QuickGrid.PropertyColumn Property="@(p => p.Height)" Sortable="true" />
+    <Microsoft.AspNetCore.Components.QuickGrid.PropertyColumn Property="@(p => DateTimeOffsetExtensions.FromUnixTimeNanoseconds(long.Parse(p.Date)))" Format="yyyy-MM-dd hh:mm" Sortable="true" Title="Date" />
 </QuickGrid>
 <Paginator Value="@pagination" />
 
