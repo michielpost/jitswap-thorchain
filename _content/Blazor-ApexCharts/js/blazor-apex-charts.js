@@ -194,7 +194,7 @@
         }
 
         var options = JSON.parse(options, (key, value) =>
-            (key === 'formatter' || key === 'dateFormatter' || key === 'custom') && value.length !== 0 ? eval("(" + value + ")") : value
+            (key === 'formatter' || key === 'tooltipHoverFormatter' || key === 'dateFormatter' || key === 'custom') && value.length !== 0 ? eval("(" + value + ")") : value
         );
 
         if (options.debug == true) {
@@ -238,6 +238,28 @@
             }
         };
 
+        if (options.hasMarkerClick === true) {
+            options.chart.events.markerClick = function (event, chartContext, config) {
+                var selection = {
+                    dataPointIndex: config.dataPointIndex,
+                    seriesIndex: config.seriesIndex,
+                    selectedDataPoints: config.selectedDataPoints
+                }
+                dotNetObject.invokeMethodAsync('JSMarkerClick', selection);
+            }
+        };
+
+        if (options.hasXAxisLabelClick === true) {
+            options.chart.events.xAxisLabelClick = function (event, chartContext, config) {
+                var data = {
+                    labelIndex: config.labelIndex,
+                    caption: event.target.innerHTML
+                };
+                dotNetObject.invokeMethodAsync('JSXAxisLabelClick', data);
+            }
+        };
+
+       
         if (options.hasLegendClick === true) {
             options.chart.events.legendClick = function (chartContext, seriesIndex, config) {
                 var legendClick = {
