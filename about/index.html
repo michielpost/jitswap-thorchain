@@ -63,78 +63,80 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
 
 <style>
 :root{
---mud-palette-black: #27272fff;
---mud-palette-white: #ffffffff;
---mud-palette-primary: #776be7ff;
+--mud-palette-black: rgba(39,39,47,1);
+--mud-palette-white: rgba(255,255,255,1);
+--mud-palette-primary: rgba(119,107,231,1);
 --mud-palette-primary-rgb: 119,107,231;
---mud-palette-primary-text: #ffffffff;
+--mud-palette-primary-text: rgba(255,255,255,1);
 --mud-palette-primary-darken: rgb(90,75,226);
 --mud-palette-primary-lighten: rgb(151,141,236);
 --mud-palette-primary-hover: rgba(119,107,231,0.058823529411764705);
---mud-palette-secondary: #ff4081ff;
+--mud-palette-secondary: rgba(255,64,129,1);
 --mud-palette-secondary-rgb: 255,64,129;
---mud-palette-secondary-text: #ffffffff;
+--mud-palette-secondary-text: rgba(255,255,255,1);
 --mud-palette-secondary-darken: rgb(255,31,105);
 --mud-palette-secondary-lighten: rgb(255,102,153);
 --mud-palette-secondary-hover: rgba(255,64,129,0.058823529411764705);
---mud-palette-tertiary: #1ec8a5ff;
+--mud-palette-tertiary: rgba(30,200,165,1);
 --mud-palette-tertiary-rgb: 30,200,165;
---mud-palette-tertiary-text: #ffffffff;
+--mud-palette-tertiary-text: rgba(255,255,255,1);
 --mud-palette-tertiary-darken: rgb(25,169,140);
 --mud-palette-tertiary-lighten: rgb(42,223,187);
 --mud-palette-tertiary-hover: rgba(30,200,165,0.058823529411764705);
---mud-palette-info: #3299ffff;
+--mud-palette-info: rgba(50,153,255,1);
 --mud-palette-info-rgb: 50,153,255;
---mud-palette-info-text: #ffffffff;
+--mud-palette-info-text: rgba(255,255,255,1);
 --mud-palette-info-darken: rgb(10,133,255);
 --mud-palette-info-lighten: rgb(92,173,255);
 --mud-palette-info-hover: rgba(50,153,255,0.058823529411764705);
---mud-palette-success: #0bba83ff;
+--mud-palette-success: rgba(11,186,131,1);
 --mud-palette-success-rgb: 11,186,131;
---mud-palette-success-text: #ffffffff;
+--mud-palette-success-text: rgba(255,255,255,1);
 --mud-palette-success-darken: rgb(9,154,108);
 --mud-palette-success-lighten: rgb(13,222,156);
 --mud-palette-success-hover: rgba(11,186,131,0.058823529411764705);
---mud-palette-warning: #ffa800ff;
+--mud-palette-warning: rgba(255,168,0,1);
 --mud-palette-warning-rgb: 255,168,0;
---mud-palette-warning-text: #ffffffff;
+--mud-palette-warning-text: rgba(255,255,255,1);
 --mud-palette-warning-darken: rgb(214,143,0);
 --mud-palette-warning-lighten: rgb(255,182,36);
 --mud-palette-warning-hover: rgba(255,168,0,0.058823529411764705);
---mud-palette-error: #f64e62ff;
+--mud-palette-error: rgba(246,78,98,1);
 --mud-palette-error-rgb: 246,78,98;
---mud-palette-error-text: #ffffffff;
+--mud-palette-error-text: rgba(255,255,255,1);
 --mud-palette-error-darken: rgb(244,47,70);
 --mud-palette-error-lighten: rgb(248,119,134);
 --mud-palette-error-hover: rgba(246,78,98,0.058823529411764705);
---mud-palette-dark: #27272fff;
+--mud-palette-dark: rgba(39,39,47,1);
 --mud-palette-dark-rgb: 39,39,47;
---mud-palette-dark-text: #ffffffff;
+--mud-palette-dark-text: rgba(255,255,255,1);
 --mud-palette-dark-darken: rgb(23,23,28);
 --mud-palette-dark-lighten: rgb(56,56,67);
 --mud-palette-dark-hover: rgba(39,39,47,0.058823529411764705);
---mud-palette-text-primary: #ffffffb2;
---mud-palette-text-secondary: #ffffff7f;
---mud-palette-text-disabled: #ffffff33;
---mud-palette-action-default: #adadb1ff;
+--mud-palette-text-primary: rgba(255,255,255,0.6980392156862745);
+--mud-palette-text-secondary: rgba(255,255,255,0.4980392156862745);
+--mud-palette-text-disabled: rgba(255,255,255,0.2);
+--mud-palette-action-default: rgba(173,173,177,1);
 --mud-palette-action-default-hover: rgba(0,0,0,0.058823529411764705);
---mud-palette-action-disabled: #ffffff42;
---mud-palette-action-disabled-background: #ffffff1e;
---mud-palette-surface: #373740ff;
---mud-palette-background: #32333dff;
---mud-palette-background-grey: #27272fff;
---mud-palette-drawer-background: #27272fff;
---mud-palette-drawer-text: #ffffff7f;
---mud-palette-drawer-icon: #ffffff7f;
---mud-palette-appbar-background: #27272fff;
---mud-palette-appbar-text: #ffffffb2;
---mud-palette-lines-default: #ffffff1e;
---mud-palette-lines-inputs: #ffffff4c;
---mud-palette-table-lines: #ffffff1e;
---mud-palette-table-striped: #ffffff33;
---mud-palette-table-hover: #0000000a;
---mud-palette-divider: #ffffff1e;
---mud-palette-divider-light: #ffffff0f;
+--mud-palette-action-disabled: rgba(255,255,255,0.25882352941176473);
+--mud-palette-action-disabled-background: rgba(255,255,255,0.11764705882352941);
+--mud-palette-surface: rgba(55,55,64,1);
+--mud-palette-background: rgba(50,51,61,1);
+--mud-palette-background-grey: rgba(39,39,47,1);
+--mud-palette-drawer-background: rgba(39,39,47,1);
+--mud-palette-drawer-text: rgba(255,255,255,0.4980392156862745);
+--mud-palette-drawer-icon: rgba(255,255,255,0.4980392156862745);
+--mud-palette-appbar-background: rgba(39,39,47,1);
+--mud-palette-appbar-text: rgba(255,255,255,0.6980392156862745);
+--mud-palette-lines-default: rgba(255,255,255,0.11764705882352941);
+--mud-palette-lines-inputs: rgba(255,255,255,0.2980392156862745);
+--mud-palette-table-lines: rgba(255,255,255,0.11764705882352941);
+--mud-palette-table-striped: rgba(255,255,255,0.2);
+--mud-palette-table-hover: rgba(0,0,0,0.0392156862745098);
+--mud-palette-divider: rgba(255,255,255,0.11764705882352941);
+--mud-palette-divider-light: rgba(255,255,255,0.058823529411764705);
+--mud-palette-chip-default: rgba(255,255,255,0.1568627450980392);
+--mud-palette-chip-default-hover: rgba(255,255,255,0.23921568627450981);
 --mud-palette-grey-default: #9E9E9E;
 --mud-palette-grey-light: #BDBDBD;
 --mud-palette-grey-lighter: #E0E0E0;
@@ -291,10 +293,10 @@ html, body * {scrollbar-color: #c4c4c4 transparent;scrollbar-width: thin;}
                 <p class="mud-typography mud-typography-body1 mud-typography-align-left">Work in progress</p>
 
                    <p class="mud-typography mud-typography-body1 mud-typography-align-left"><a href="https://github.com/michielpost/jitswap-thorchain" target="_blank">GitHub</a> |
-           Version: 0.1.0-<a href="https://github.com/michielpost/jitswap-thorchain/tree/e2e121a" target="_blank">e2e121a</a></p></div></div></div></div></div>
+           Version: 0.1.0-<a href="https://github.com/michielpost/jitswap-thorchain/tree/4539b76" target="_blank">4539b76</a></p></div></div></div></div></div>
     <div class="mud-container mud-container-maxwidth-lg"><hr class="mud-divider mud-divider-fullwidth my-6" />
         <h6 class="mud-typography mud-typography-subtitle2 mud-typography-align-center">
-            Copyright 2023 | Version: 0.1.0-<a href="https://github.com/michielpost/jitswap-thorchain/tree/e2e121a" target="_blank" b-5hgowzk1bx>e2e121a</a></h6></div></div>
+            Copyright 2023 | Version: 0.1.0-<a href="https://github.com/michielpost/jitswap-thorchain/tree/4539b76" target="_blank" b-5hgowzk1bx>4539b76</a></h6></div></div>
         
 
 </div>

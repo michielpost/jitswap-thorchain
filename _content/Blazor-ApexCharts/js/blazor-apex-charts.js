@@ -48,13 +48,11 @@
     },
 
     updateOptions(id, options, redrawPaths, animate, updateSyncedCharts, zoom) {
-        var data = JSON.parse(options, (key, value) =>
-            (key === 'formatter' || key === 'dateFormatter' || key === 'custom') && value.length !== 0 ? eval("(" + value + ")") : value
-        );
+        var options = this.parseOptions(options);
         var chart = this.findChart(id);
         if (chart !== undefined) {
             this.LogMethodCall(chart, "updateOptions", options);
-            chart.updateOptions(data, redrawPaths, animate, updateSyncedCharts);
+            chart.updateOptions(options, redrawPaths, animate, updateSyncedCharts);
 
             if (zoom !== null) {
                 chart.zoomX(zoom.start, zoom.end);
@@ -188,108 +186,206 @@
         }
     },
 
-    renderChart(dotNetObject, container, options) {
+    renderChart(dotNetObject, container, options, events) {
         if (options.debug == true) {
             console.log(options);
         }
 
-        var options = JSON.parse(options, (key, value) =>
-            (key === 'formatter' || key === 'tooltipHoverFormatter' || key === 'dateFormatter' || key === 'custom') && value.length !== 0 ? eval("(" + value + ")") : value
-        );
+        var options = this.parseOptions(options);
 
         if (options.debug == true) {
             console.log(options);
         }
 
         options.dotNetObject = dotNetObject;
-
-
         options.chart.events = {};
 
-        if (options.hasDataPointLeave === true) {
+        if (events.hasDataPointLeave === true) {
             options.chart.events.dataPointMouseLeave = function (event, chartContext, config) {
                 var selection = {
                     dataPointIndex: config.dataPointIndex,
                     seriesIndex: config.seriesIndex
-                }
+                };
+
                 dotNetObject.invokeMethodAsync('JSDataPointLeave', selection);
             }
         };
 
-        if (options.hasDataPointEnter === true) {
+        if (events.hasDataPointEnter === true) {
             options.chart.events.dataPointMouseEnter = function (event, chartContext, config) {
                 var selection = {
                     dataPointIndex: config.dataPointIndex,
                     seriesIndex: config.seriesIndex
-                }
+                };
+
                 dotNetObject.invokeMethodAsync('JSDataPointEnter', selection);
             }
         };
 
-
-        if (options.hasDataPointSelection === true) {
+        if (events.hasDataPointSelection === true) {
             options.chart.events.dataPointSelection = function (event, chartContext, config) {
                 var selection = {
                     dataPointIndex: config.dataPointIndex,
                     seriesIndex: config.seriesIndex,
                     selectedDataPoints: config.selectedDataPoints
-                }
+                };
+
                 dotNetObject.invokeMethodAsync('JSDataPointSelected', selection);
             }
         };
 
-        if (options.hasMarkerClick === true) {
+        if (events.hasMarkerClick === true) {
             options.chart.events.markerClick = function (event, chartContext, config) {
                 var selection = {
                     dataPointIndex: config.dataPointIndex,
                     seriesIndex: config.seriesIndex,
                     selectedDataPoints: config.selectedDataPoints
-                }
+                };
+
                 dotNetObject.invokeMethodAsync('JSMarkerClick', selection);
             }
         };
 
-        if (options.hasXAxisLabelClick === true) {
+        if (events.hasXAxisLabelClick === true) {
             options.chart.events.xAxisLabelClick = function (event, chartContext, config) {
                 var data = {
                     labelIndex: config.labelIndex,
                     caption: event.target.innerHTML
                 };
+
                 dotNetObject.invokeMethodAsync('JSXAxisLabelClick', data);
             }
         };
 
-       
-        if (options.hasLegendClick === true) {
+        if (events.hasLegendClick === true) {
             options.chart.events.legendClick = function (chartContext, seriesIndex, config) {
                 var legendClick = {
                     seriesIndex: seriesIndex,
                     collapsed: config.globals.collapsedSeriesIndices.indexOf(seriesIndex) !== -1
-                }
+                };
 
                 dotNetObject.invokeMethodAsync('JSLegendClicked', legendClick);
             }
         };
 
-        if (options.hasSelection === true) {
+        if (events.hasSelection === true) {
             options.chart.events.selection = function (chartContext, config) {
                 dotNetObject.invokeMethodAsync('JSSelected', config);
             };
         };
 
-        if (options.hasBrushScrolled === true) {
+        if (events.hasBrushScrolled === true) {
             options.chart.events.brushScrolled = function (chartContext, config) {
                 dotNetObject.invokeMethodAsync('JSBrushScrolled', config);
             };
         };
 
-        if (options.hasZoomed === true) {
+        if (events.hasZoomed === true) {
             options.chart.events.zoomed = function (chartContext, config) {
                 dotNetObject.invokeMethodAsync('JSZoomed', config);
             };
         };
 
-        //Always destry chart if it exists
+        if (events.hasAnimationEnd === true) {
+            options.chart.events.animationEnd = function (chartContext, options) {
+                dotNetObject.invokeMethodAsync('JSAnimationEnd');
+            };
+        };
+
+        if (events.hasBeforeMount === true) {
+            options.chart.events.beforeMount = function (chartContext, config) {
+                dotNetObject.invokeMethodAsync('JSBeforeMount');
+            };
+        };
+
+        if (events.hasMounted === true) {
+            options.chart.events.mounted = function (chartContext, config) {
+                dotNetObject.invokeMethodAsync('JSMounted');
+            };
+        };
+
+        if (events.hasUpdated === true) {
+            options.chart.events.updated = function (chartContext, config) {
+                dotNetObject.invokeMethodAsync('JSUpdated');
+            };
+        };
+
+        if (events.hasMouseMove === true) {
+            options.chart.events.mouseMove = function (event, chartContext, config) {
+                var selection = {
+                    dataPointIndex: -1, // Documentation notes that these details are available in cartesian charts, this will prevent null reference in .NET callback
+                    seriesIndex: -1
+                };
+
+                if (config.dataPointIndex >= 0)
+                    selection.dataPointIndex = config.dataPointIndex;
+
+                if (config.seriesIndex >= 0)
+                    selection.seriesIndex = config.seriesIndex;
+
+                dotNetObject.invokeMethodAsync('JSMouseMove', selection);
+            };
+        };
+
+        if (events.hasMouseLeave === true) {
+            options.chart.events.mouseLeave = function (event, chartContext, config) {
+                dotNetObject.invokeMethodAsync('JSMouseLeave');
+            };
+        };
+
+        if (events.hasClick === true) {
+            options.chart.events.click = function (event, chartContext, config) {
+                var selection = {
+                    dataPointIndex: -1,
+                    seriesIndex: -1
+                };
+
+                if (config.dataPointIndex >= 0)
+                    selection.dataPointIndex = config.dataPointIndex;
+
+                if (config.seriesIndex >= 0)
+                    selection.seriesIndex = config.seriesIndex;
+
+                dotNetObject.invokeMethodAsync('JSClick', selection);
+            };
+        };
+
+        if (events.hasBeforeZoom === true) {
+            options.chart.events.beforeZoom = function (chartContext, config) {
+                if (config.yaxis !== undefined || Array.isArray(config.yaxis))
+                    config.yaxis = undefined;
+
+                var data = dotNetObject.invokeMethod('JSBeforeZoom', config);
+
+                return {
+                    xaxis: {
+                        min: data.min,
+                        max: data.max
+                    }
+                };
+            };
+        };
+
+        if (events.hasBeforeResetZoom === true) {
+            options.chart.events.beforeResetZoom = function (chartContext, opts) {
+                var data = dotNetObject.invokeMethod('JSBeforeResetZoom');
+
+                return {
+                    xaxis: {
+                        min: data.min,
+                        max: data.max
+                    }
+                };
+            };
+        };
+
+        if (events.hasScrolled === true) {
+            options.chart.events.scrolled = function (chartContext, config) {
+                dotNetObject.invokeMethodAsync('JSScrolled', config);
+            };
+        };
+
+        //Always destroy chart if it exists
         this.destroyChart(options.chart.id);
 
         chart = new ApexCharts(container, options);
@@ -298,5 +394,19 @@
         if (options.debug == true) {
             console.log('Chart ' + options.chart.id + ' rendered');
         }
+    },
+
+    parseOptions(options) {
+        return JSON.parse(options, (key, value) => {
+            if ((key === 'formatter' || key === 'dateFormatter' || key === 'custom' || key === 'click') && value.length !== 0) {
+                if (Array.isArray(value))
+                    return value.map(item => eval?.("'use strict'; (" + item + ")"));
+                else
+                    return eval?.("'use strict'; (" + value + ")");
+            }
+            else {
+                return value;
+            }
+        });
     }
 }
