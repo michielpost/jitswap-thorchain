@@ -11,6 +11,10 @@
 		<InvariantGlobalization>true</InvariantGlobalization>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<NSwagGenerateExceptionClasses>true</NSwagGenerateExceptionClasses>
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="Midgard" ClassName="MidgardAPI" Options="/JsonLibrary:SystemTextJson">
 	    <SourceUri>https://midgard.ninerealms.com/v2/swagger.json</SourceUri>
