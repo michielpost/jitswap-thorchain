@@ -27,6 +27,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.0.x
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
       - name: Build with dotnet
         run: dotnet build src/JitSwap.Blazor --configuration Release
       - name: Publish Website
