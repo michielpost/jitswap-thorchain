@@ -12,7 +12,7 @@ namespace JitSwap.Blazor.Services
             this.localStorage = localStorage;
         }
 
-        public ValueTask<string> GetApiUrl()
+        public ValueTask<string?> GetApiUrl()
         {
             return localStorage.GetItemAsync<string>(API_URL_KEY);
         }

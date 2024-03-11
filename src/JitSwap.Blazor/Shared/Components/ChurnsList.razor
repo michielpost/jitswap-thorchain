@@ -10,7 +10,7 @@
     <Microsoft.AspNetCore.Components.QuickGrid.PropertyColumn Property="@(p => p.Height)" Sortable="true" />
     <Microsoft.AspNetCore.Components.QuickGrid.PropertyColumn Property="@(p => DateTimeOffsetExtensions.FromUnixTimeNanoseconds(long.Parse(p.Date)))" Format="yyyy-MM-dd hh:mm" Sortable="true" Title="Date" />
 </QuickGrid>
-<Paginator Value="@pagination" />
+<Paginator State="@pagination" />
 
 @code {
 
